@@ -1,10 +1,13 @@
 import React from 'react';
+import {useColorModeValue,Text} from "@chakra-ui/react";
 
-const Paragraph = () => {
+const Paragraph = ({ children, ...props }:any) => {
+	const textColor = useColorModeValue("gray.600", "gray.400");
+
 	return (
-		<div>
-			
-			</div>
+		<Text color={textColor} {...props}>
+			{children}
+		</Text>
 	);
 };
 

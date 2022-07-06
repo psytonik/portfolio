@@ -21,9 +21,9 @@ const ProfileSection = () => {
 					<Flex alignItems={"flex-end"}>
 						<Avatar
 							name="Anthony Fink"
-							src="/profile.png"
+							src="/profile.jpeg"
 							mb={5}
-							size='lg'
+							size='2xl'
 						/>
 					</Flex>
 				</Flex>

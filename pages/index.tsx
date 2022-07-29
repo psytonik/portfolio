@@ -1,10 +1,10 @@
-import type { NextPage } from 'next'
+import type {NextPage} from 'next'
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {Container, Divider} from "@chakra-ui/react";
 import ProfileSection from "../section/ProfileSection/ProfileSection";
 import TechStackSection from "../section/TechStackSection/TechStackSection";
-import useSWR from 'swr';
+import useSWR from "swr";
 
 const Home: NextPage = () => {
     const fetcher = (url: RequestInfo | URL) => fetch(url).then((r)=>r.json())

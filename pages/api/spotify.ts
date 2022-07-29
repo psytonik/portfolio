@@ -37,9 +37,12 @@ export const getNowPlaying = async () => {
 export default async ( _:any, res:any ) => {
 	const response = await getNowPlaying();
 	if (response.status === 204 || response.status > 400) {
+		console.log('Status ',response.status)
 		return res.status(200).json({ isPlaying: false });
 	}
+
 	const song = await response.json();
+
 	const isPlaying = song.is_playing;
 	const title = song.item.name;
 	const artist = song.item.artists.map((_artist:any) => _artist.name).join(', ');

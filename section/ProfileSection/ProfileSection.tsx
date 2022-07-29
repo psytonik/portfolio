@@ -5,8 +5,10 @@ import {BiPhoneCall} from "react-icons/bi";
 import SocialButton from "@components/SocialButton/SocialButton";
 import {resume} from "../../constants";
 import Link from 'next/link';
+import SpotifySection from "../SpotifySection/SpotifySection";
 
-const ProfileSection = () => {
+const ProfileSection = ({song}:any) => {
+	console.log(song);
 	return (
 		<SlideFade in offsetX={80}>
 			<Box>
@@ -68,6 +70,7 @@ const ProfileSection = () => {
 					</LightMode>
 				</Box>
 
+				<SpotifySection song={song}/>
 			</Box>
 		</SlideFade>
 	);

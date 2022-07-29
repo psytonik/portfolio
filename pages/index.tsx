@@ -4,8 +4,11 @@ import Head from "next/head";
 import {Container, Divider} from "@chakra-ui/react";
 import ProfileSection from "../section/ProfileSection/ProfileSection";
 import TechStackSection from "../section/TechStackSection/TechStackSection";
+import useSWR from 'swr';
 
 const Home: NextPage = () => {
+    const fetcher = (url: RequestInfo | URL) => fetch(url).then((r)=>r.json())
+    const {data} = useSWR('/api/spotify', fetcher);
 
   return (
       <div className={styles.container}>
@@ -17,7 +20,7 @@ const Home: NextPage = () => {
           </Head>
           <main>
               <Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
-                  <ProfileSection/>
+                  <ProfileSection song={data}/>
                   <Divider my={7} />
                   <TechStackSection/>
                   <Divider my={7} />

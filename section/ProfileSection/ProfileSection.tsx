@@ -6,6 +6,7 @@ import SocialButton from "@components/SocialButton/SocialButton";
 import {resume} from "../../constants";
 import Link from 'next/link';
 import SpotifySection from "../SpotifySection/SpotifySection";
+import Typed from 'react-typed';
 
 const ProfileSection = ({song}:any) => {
 	console.log(song);
@@ -18,7 +19,13 @@ const ProfileSection = ({song}:any) => {
 						fontSize={{ base: '28px', md: '40px', lg: '48px' }}
 						mb={3}
 					>
-						Hey, I am Anthony Fink! <span className="waving-hand">👋</span>
+						<Typed
+							strings={['Hey, I am Anthony Fink! ']}
+							typeSpeed={40}
+							backSpeed={50}
+							loop={true}
+						/>
+						<span className="waving-hand">👋</span>
 					</Heading>
 					<Flex alignItems={"flex-end"}>
 						<Avatar

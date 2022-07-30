@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import { SlideFade, Box, Heading, Avatar, Flex,Link as LinkChakra, LightMode, ButtonGroup, Button, useColorModeValue } from '@chakra-ui/react';
 import Paragraph from "@components/Paragraph/Paragraph";
 import {BiPhoneCall} from "react-icons/bi";
@@ -6,10 +6,25 @@ import SocialButton from "@components/SocialButton/SocialButton";
 import {resume} from "../../constants";
 import Link from 'next/link';
 import SpotifySection from "../SpotifySection/SpotifySection";
-import Typed from 'react-typed';
+import Typed from 'typed.js';
 
 const ProfileSection = ({song}:any) => {
-	console.log(song);
+	const el = useRef<HTMLSpanElement>(null);
+	useEffect(()=>{
+		// @ts-ignore
+		const typed = new Typed(el.current, {
+			strings:['Hey, I am Anthony Fink!'],
+			typeSpeed: 40,
+			backSpeed: 100,
+			backDelay: 100,
+			smartBackspace: true,
+			loop: true,
+		});
+
+		return () => {
+			typed.destroy();
+		}
+	},[])
 	return (
 		<SlideFade in offsetX={80}>
 			<Box>
@@ -19,13 +34,7 @@ const ProfileSection = ({song}:any) => {
 						fontSize={{ base: '28px', md: '40px', lg: '48px' }}
 						mb={3}
 					>
-						<Typed
-							strings={['Hey, I am Anthony Fink! ']}
-							typeSpeed={40}
-							backSpeed={50}
-							loop={true}
-						/>
-						<span className="waving-hand">👋</span>
+						<span ref={el}></span><span className="waving-hand">👋</span>
 					</Heading>
 					<Flex alignItems={"flex-end"}>
 						<Avatar

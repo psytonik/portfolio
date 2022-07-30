@@ -10,16 +10,19 @@ import Typed from 'typed.js';
 
 const ProfileSection = ({song}:any) => {
 	const el = useRef<HTMLSpanElement>(null);
+
 	useEffect(()=>{
-		// @ts-ignore
-		const typed = new Typed(el.current, {
+		const options:object = {
 			strings:['Hey, I am Anthony Fink!'],
-			typeSpeed: 40,
-			backSpeed: 100,
-			backDelay: 100,
+			typeSpeed: 30,
+			backSpeed: 60,
+			backDelay: 150,
+			shuffle: true,
 			smartBackspace: true,
 			loop: true,
-		});
+		}
+		// @ts-ignore
+		const typed = new Typed(el?.current, options);
 
 		return () => {
 			typed.destroy();

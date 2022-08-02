@@ -41,7 +41,7 @@ const Home: NextPage = () => {
 
               <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
               <meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-              <link rel="icon" href="/profile.png" />
+              <link rel="icon" href="/profile.jpeg" />
           </Head>
           <main>
               <Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

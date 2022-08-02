@@ -27,15 +27,15 @@ const Home: NextPage = () => {
               <meta name='msapplication-tap-highlight' content='no' />
               <meta name='theme-color' content='#000000' />
 
-              <link rel='apple-touch-icon' href='/profile.png' />
-              <link rel='apple-touch-icon' sizes='152x152' href='/profile.png' />
-              <link rel='apple-touch-icon' sizes='180x180' href='/profile.png' />
-              <link rel='apple-touch-icon' sizes='167x167' href='/profile.png' />
+              <link rel='apple-touch-icon' href='/profile.jpeg' />
+              <link rel='apple-touch-icon' sizes='152x152' href='/profile.jpeg' />
+              <link rel='apple-touch-icon' sizes='180x180' href='/profile.jpeg' />
+              <link rel='apple-touch-icon' sizes='167x167' href='/profile.jpeg' />
 
-              <link rel='icon' type='image/png' sizes='32x32' href='/profile.png' />
-              <link rel='icon' type='image/png' sizes='16x16' href='/profile.png' />
+              <link rel='icon' type='image/png' sizes='32x32' href='/profile.jpeg' />
+              <link rel='icon' type='image/png' sizes='16x16' href='/profile.jpeg' />
               <link rel='manifest' href='/manifest.json' />
-              <link rel='mask-icon' href='/profile.png' color='#5bbad5' />
+              <link rel='mask-icon' href='/profile.jpeg' color='#5bbad5' />
               <link rel='shortcut icon' href='/favicon.ico' />
               <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
 

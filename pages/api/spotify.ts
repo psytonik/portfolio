@@ -13,6 +13,7 @@ const refresh: any = process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN;
 const getAccessToken = async () => {
 	const response = await fetch(TOKEN_ENDPOINT, {
 		method: 'POST',
+		mode: "cors",
 		headers: {
 			Authorization:`Basic ${basic}`,
 			'Content-Type' : 'application/x-www-form-urlencoded',
@@ -28,6 +29,7 @@ export const getNowPlaying = async () => {
 	const {access_token} = await getAccessToken();
 	return fetch(NOW_PLAYING_ENDPOINT,{
 		method: 'GET',
+		mode: "cors",
 		headers:{
 			Authorization: `Bearer ${access_token}`
 		}
@@ -37,7 +39,6 @@ export const getNowPlaying = async () => {
 export default async ( _:any, res:any ) => {
 	const response = await getNowPlaying();
 	if (response.status === 204 || response.status > 400) {
-		console.log('Status ',response.status)
 		return res.status(200).json({ isPlaying: false });
 	}
 

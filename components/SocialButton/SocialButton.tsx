@@ -3,7 +3,7 @@ import {Button, Link} from "@chakra-ui/react";
 
 const SocialButton = ({ social }:any) => {
 	return (
-		<Link href={social.url} isExternal style={{ textDecoration: 'none' }}>
+		<Link href={social.url} isExternal style={{ textDecoration: 'none' }} rel="preload">
 			<Button
 				colorScheme="blue"
 				size='sm'

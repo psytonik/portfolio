@@ -27,21 +27,21 @@ const Home: NextPage = () => {
               <meta name='msapplication-tap-highlight' content='no' />
               <meta name='theme-color' content='#000000' />
 
-              <link rel='apple-touch-icon' href='/profile.jpeg' />
-              <link rel='apple-touch-icon' sizes='152x152' href='/profile.jpeg' />
-              <link rel='apple-touch-icon' sizes='180x180' href='/profile.jpeg' />
-              <link rel='apple-touch-icon' sizes='167x167' href='/profile.jpeg' />
+              <link rel='apple-touch-icon preload' href='/profile.jpeg' />
+              <link rel='apple-touch-icon preload' sizes='152x152' href='/profile.jpeg' />
+              <link rel='apple-touch-icon preload' sizes='180x180' href='/profile.jpeg' />
+              <link rel='apple-touch-icon preload' sizes='167x167' href='/profile.jpeg' />
 
-              <link rel='icon' type='image/png' sizes='32x32' href='/profile.jpeg' />
-              <link rel='icon' type='image/png' sizes='16x16' href='/profile.jpeg' />
-              <link rel='manifest' href='/manifest.json' />
-              <link rel='mask-icon' href='/profile.jpeg' color='#5bbad5' />
-              <link rel='shortcut icon' href='/favicon.ico' />
-              <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
+              <link rel='icon preload' type='image/png' sizes='32x32' href='/profile.jpeg' />
+              <link rel='icon preload' type='image/png' sizes='16x16' href='/profile.jpeg' />
+              <link rel='manifest preload' href='/manifest.json' />
+              <link rel='mask-icon preload' href='/profile.jpeg' color='#5bbad5' />
+              <link rel='shortcut icon preload' href='/favicon.ico' />
+              <link rel='stylesheet preload' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
 
               <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
               <meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-              <link rel="icon" href="/profile.jpeg" />
+              <link rel="icon preload" href="/profile.jpeg"/>
           </Head>
           <main>
               <Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

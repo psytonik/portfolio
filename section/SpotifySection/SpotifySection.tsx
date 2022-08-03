@@ -27,7 +27,6 @@ const SpotifySection = ({ song }:any) => {
 					borderColor: "blue.500",
 				}}
 				borderColor={useColorModeValue("gray.300", "gray.700")}
-				// href={song?.isPlaying && song.songUrl}
 			>
 				<LinkOverlay
 					href={song?.isPlaying ? song?.songUrl : undefined}

@@ -60,7 +60,7 @@ const NavBar = () => {
 							as={CharkaLink}
 							size='sm'
 							href="/"
-							src="/profile.jpeg"
+							src="/profile.png"
 							_hover={{ borderColor: "blue.500" }}
 						/>
 						<HStack as="nav" spacing="4" display={{ base: 'none', md: 'flex' }}>

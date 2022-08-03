@@ -42,7 +42,7 @@ const ProfileSection = ({song}:any) => {
 					<Flex alignItems={"flex-end"}>
 						<Avatar
 							name="Anthony Fink"
-							src="/profile.jpeg"
+							src="/profile.png"
 							mb={5}
 							size='2xl'
 						/>

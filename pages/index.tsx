@@ -36,8 +36,8 @@ const Home: NextPage = () => {
               <link rel='icon preload' as="image" type='image/png' sizes='16x16' href='/profile.png' />
               <link rel='manifest preload' href='/manifest.json' />
               <link rel='mask-icon preload' as="image" href='/profile.png' color='#5bbad5' />
-              <link rel='shortcut icon preload' href='/favicon.ico' />
-              <link rel='stylesheet preload' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
+              <link rel='shortcut icon preload' href='/favicon.ico' as="image"/>
+              <link rel='stylesheet preload' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' as="font"/>
 
               <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
               <meta name="description" content="Anthony Fink | Full Stack Web Developer" />

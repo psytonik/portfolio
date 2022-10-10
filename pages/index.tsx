@@ -10,10 +10,11 @@ import {useRouter} from "next/router";
 
 const Home: NextPage = () => {
     const router = useRouter();
-    const fetcher = (url: RequestInfo | URL) => fetch(url).then((r)=>r.json())
-    const {data} = useSWR('/api/spotify', fetcher);
     ReactGA.initialize("G-9DGEB5XE14");
     ReactGA.send({ hitType: "pageview", page: router.pathname });
+
+    const fetcher = (url: RequestInfo | URL) => fetch(url).then((r)=>r.json())
+    const {data} = useSWR('/api/spotify', fetcher);
 
   return (
       <div className={styles.container}>
@@ -60,4 +61,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;

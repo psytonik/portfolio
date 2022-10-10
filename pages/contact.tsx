@@ -13,11 +13,12 @@ import {
 	SlideFade,
 	Text,
 	Textarea,
-	useColorModeValue, useToast
+	useColorModeValue,
+	useToast
 } from "@chakra-ui/react";
 import ErrorMessage from "@components/ErrorMessage/ErrorMessage";
 
-import emailjs,{init} from '@emailjs/browser';
+import emailJs, {init} from '@emailjs/browser';
 
 import {gaEvents} from "../utils/gaEvents";
 
@@ -28,11 +29,10 @@ const Contact = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
-	const [error, ] = useState('');
+	const [error,setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
 	const toast = useToast();
-
 	const clearInput = () => {
 		setName('');
 		setEmail('');
@@ -40,49 +40,48 @@ const Contact = () => {
 		setIsLoading(false);
 	}
 
-	const handleSubmit = (e:any) => {
+	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		emailjs.send('service_oewo82m','template_koi7q1g',{
+		emailJs.send('service_oewo82m', 'template_koi7q1g', {
 			from_name: name,
 			from_email: email,
 			message: message,
-		})
-			.then(() => {
-				clearInput();
-				gaEvents.eventMailSent()
-				toast({
-					title: 'Email sent.',
-					description: 'You had successfully sent the email. I will reply your email ASAP. Thank you!',
-					status: 'success',
-					duration: 9000,
-					isClosable: true
-				})
-			}, (error) => {
-				clearInput();
-
-				toast({
-					title: 'Email not sent.',
-					description: error.text,
-					status: 'error',
-					duration: 9000,
-					isClosable: true
-				})
-			});
+		}).then(() => {
+			toast({
+				title: 'Email sent.',
+				description: 'You had successfully sent the email. I will reply your email ASAP. Thank you!',
+				status: 'success',
+				duration: 9000,
+				isClosable: true
+			})
+			clearInput();
+			gaEvents.eventMailSent()
+		}, (error) => {
+			toast({
+				title: 'Email not sent.',
+				description: error.text,
+				status: 'error',
+				duration: 9000,
+				isClosable: true
+			})
+			setError(error.text);
+			clearInput();
+		});
 	}
 
 	return (
 		<div className={styles.container}>
 			<Head>
 				<title>Anthony Fink | Contact</title>
-				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="icon" href="/profile.png" />
+				<meta name="description" content="Anthony Fink | Full Stack Web Developer"/>
+				<link rel="icon" href="/profile.png"/>
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
 					<SlideFade in offsetX={80}>
-						<Flex width="full"  align="center" justifyContent="center">
+						<Flex width="full" align="center" justifyContent="center">
 							<Box
 								p={8}
 								maxWidth="container.lg"
@@ -94,7 +93,7 @@ const Contact = () => {
 								<Text fontSize={'lg'} my={2}>Do not hesitate to contact me!</Text>
 								<Box my={4} textAlign="left">
 									<form onSubmit={handleSubmit}>
-										{error && <ErrorMessage message={error} />}
+										{error && <ErrorMessage message={error}/>}
 										<FormControl isRequired>
 											<FormLabel key={'name'}>Name</FormLabel>
 											<Input

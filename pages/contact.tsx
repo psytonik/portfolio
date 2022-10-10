@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react';
+import React, {useState} from 'react';
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {
@@ -14,7 +14,7 @@ import {
 	Text,
 	Textarea,
 	useColorModeValue,
-	useToast
+	useToast,
 } from "@chakra-ui/react";
 import ErrorMessage from "@components/ErrorMessage/ErrorMessage";
 
@@ -23,7 +23,7 @@ import emailJs, {init} from '@emailjs/browser';
 import {gaEvents} from "../utils/gaEvents";
 
 const Contact = () => {
-	const form = useRef<HTMLFormElement>(null);
+
 	init('user_HkihIZQIylIbB3W952VlF');
 
 	const [name, setName] = useState('');
@@ -44,11 +44,13 @@ const Contact = () => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		emailJs.send('service_oewo82m', 'template_koi7q1g', {
+		emailJs.send('service_oewo82m',
+			'template_koi7q1g',
+			{
 			from_name: name,
 			from_email: email,
-			message: message,
-		}).then(() => {
+			message: message,}
+		).then(() => {
 			toast({
 				title: 'Email sent.',
 				description: 'You had successfully sent the email. I will reply your email ASAP. Thank you!',
@@ -92,7 +94,7 @@ const Contact = () => {
 								<Heading size={'lg'}>Let's get in touch. Leave me your message. 💬</Heading>
 								<Text fontSize={'lg'} my={2}>Do not hesitate to contact me!</Text>
 								<Box my={4} textAlign="left">
-									<form ref={form} onSubmit={handleSubmit}>
+									<form onSubmit={handleSubmit}>
 										{error && <ErrorMessage message={error}/>}
 										<FormControl isRequired>
 											<FormLabel key={'name'}>Name</FormLabel>

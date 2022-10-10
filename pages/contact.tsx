@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {
@@ -23,7 +23,7 @@ import emailJs, {init} from '@emailjs/browser';
 import {gaEvents} from "../utils/gaEvents";
 
 const Contact = () => {
-
+	const form = useRef<HTMLFormElement>(null);
 	init('user_HkihIZQIylIbB3W952VlF');
 
 	const [name, setName] = useState('');
@@ -92,7 +92,7 @@ const Contact = () => {
 								<Heading size={'lg'}>Let's get in touch. Leave me your message. 💬</Heading>
 								<Text fontSize={'lg'} my={2}>Do not hesitate to contact me!</Text>
 								<Box my={4} textAlign="left">
-									<form onSubmit={handleSubmit}>
+									<form ref={form} onSubmit={handleSubmit}>
 										{error && <ErrorMessage message={error}/>}
 										<FormControl isRequired>
 											<FormLabel key={'name'}>Name</FormLabel>

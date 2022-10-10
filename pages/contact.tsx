@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {
@@ -16,25 +16,19 @@ import {
 	useColorModeValue, useToast
 } from "@chakra-ui/react";
 import ErrorMessage from "@components/ErrorMessage/ErrorMessage";
-import ReactGA from "react-ga4";
 
 import emailjs,{init} from '@emailjs/browser';
-import {useRouter} from "next/router";
+
 import {gaEvents} from "../utils/gaEvents";
 
 const Contact = () => {
-	const router = useRouter();
-	ReactGA.send({ hitType: "pageview", page: router.pathname });
-	useEffect(()=>{
-		gaEvents.eventMailSent()
-	},[]);
 
 	init('user_HkihIZQIylIbB3W952VlF');
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
-	const [error, setError] = useState('');
+	const [error, ] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
 	const toast = useToast();
@@ -55,9 +49,9 @@ const Contact = () => {
 			from_email: email,
 			message: message,
 		})
-			.then((response) => {
+			.then(() => {
 				clearInput();
-
+				gaEvents.eventMailSent()
 				toast({
 					title: 'Email sent.',
 					description: 'You had successfully sent the email. I will reply your email ASAP. Thank you!',

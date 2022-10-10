@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {
@@ -16,10 +16,18 @@ import {
 	useColorModeValue, useToast
 } from "@chakra-ui/react";
 import ErrorMessage from "@components/ErrorMessage/ErrorMessage";
+import ReactGA from "react-ga4";
 
 import emailjs,{init} from '@emailjs/browser';
+import {useRouter} from "next/router";
+import {gaEvents} from "../utils/gaEvents";
 
 const Contact = () => {
+	const router = useRouter();
+	ReactGA.send({ hitType: "pageview", page: router.pathname });
+	useEffect(()=>{
+		gaEvents.eventMailSent()
+	},[]);
 
 	init('user_HkihIZQIylIbB3W952VlF');
 

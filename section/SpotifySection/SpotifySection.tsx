@@ -14,7 +14,7 @@ import {SiSpotify} from "react-icons/si";
 import Paragraph from "../../components/Paragraph/Paragraph";
 
 const SpotifySection = ({ song }:any) => {
-	console.log(song);
+
 	return (
 		<MotionBox whileHover={{ y: -5 }} mt={5}>
 			<LinkBox

@@ -6,11 +6,14 @@ import ProfileSection from "../section/ProfileSection/ProfileSection";
 import TechStackSection from "../section/TechStackSection/TechStackSection";
 import useSWR from "swr";
 import ReactGA from "react-ga4";
+import {useRouter} from "next/router";
 
 const Home: NextPage = () => {
+    const router = useRouter();
     const fetcher = (url: RequestInfo | URL) => fetch(url).then((r)=>r.json())
     const {data} = useSWR('/api/spotify', fetcher);
     ReactGA.initialize("G-9DGEB5XE14");
+    ReactGA.send({ hitType: "pageview", page: router.pathname });
 
   return (
       <div className={styles.container}>

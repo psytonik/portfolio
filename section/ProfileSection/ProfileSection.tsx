@@ -7,10 +7,11 @@ import {resume} from "../../constants";
 import Link from 'next/link';
 import SpotifySection from "../SpotifySection/SpotifySection";
 import Typed from 'typed.js';
+import {gaEvents} from '../../utils/gaEvents';
 
 const ProfileSection = ({song}:any) => {
-	const el = useRef<HTMLSpanElement>(null);
 
+	const el = useRef<HTMLSpanElement>(null);
 	useEffect(()=>{
 		const options:object = {
 			strings:['Hey, I am Anthony Fink!'],
@@ -80,6 +81,7 @@ const ProfileSection = ({song}:any) => {
 									size='sm'
 									margin={'5px'}
 									leftIcon={<BiPhoneCall color='white'/>}
+									onClick={gaEvents.eventContactClick}
 								>
 									Contact Me
 								</Button>

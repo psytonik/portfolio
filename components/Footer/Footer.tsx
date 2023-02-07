@@ -33,7 +33,7 @@ const Footer = () => {
 					fontSize="sm"
 					color={useColorModeValue("gray.500", "gray.200")}
 				>
-					© {new Date().getFullYear()} Anthony Fink{" "}
+					{siteConfig.copyright}
 				</Text>
 
 				<Box textAlign="center">

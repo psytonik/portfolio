@@ -20,7 +20,7 @@ const menuLinks = [
 ]
 
 const siteConfig = {
-	copyright: `Copyright © ${new Date().getFullYear()} Anthony Fink. All Rights Reserved.`,
+	copyright: `© ${new Date().getFullYear()} Anthony Fink.`,
 	author: {
 		name: "Anthony Fink",
 		accounts: [

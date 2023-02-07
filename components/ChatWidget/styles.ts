@@ -5,6 +5,7 @@ export const styles = {
 		// Border
 		borderRadius: '50%',
 		// Background
+
 		backgroundImage: `url(https://cdn-icons-png.flaticon.com/512/21/21104.png)`,
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',

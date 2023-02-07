@@ -13,14 +13,17 @@ import {
 } from '@chakra-ui/react';
 import ChatForm from "@components/ChatWidget/SupportWindow/ChatForm";
 
-
 const ChatWidget = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	return (
 		<>
 			<MyAvatar
 				onClick={onOpen}
-				style={{position:'fixed', bottom: '24px', right:'24px'}}
+				style={{
+					position:'fixed',
+					bottom: '24px',
+					right:'24px',
+			}}
 			/>
 			<Modal onClose={onClose} isOpen={isOpen} size="xl" scrollBehavior={'inside'}>
 				<ModalOverlay />

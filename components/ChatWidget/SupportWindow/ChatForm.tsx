@@ -9,7 +9,7 @@ const ChatForm = () => {
 
 	const getAnswer = async (question:string| undefined) => {
 		if(question !== undefined && question.length > 1){
-			const response = await fetch('https://api.openai.com/v1/completions',{
+			const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/completions',{
 				method:"POST",
 				headers: {
 					"Content-Type":"application/json",
@@ -22,6 +22,7 @@ const ChatForm = () => {
 					max_tokens:4000
 				})
 			})
+			console.log(response, 'response');
 			const data = await response.json();
 			if(data.error){
 				return setAnswer(data.error.message);

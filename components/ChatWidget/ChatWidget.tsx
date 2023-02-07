@@ -25,7 +25,7 @@ const ChatWidget = () => {
 					right:'24px',
 			}}
 			/>
-			<Modal onClose={onClose} isOpen={isOpen} size="xl" scrollBehavior={'inside'}>
+			<Modal onClose={onClose} isOpen={isOpen} size="xl" scrollBehavior={'inside'} >
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>

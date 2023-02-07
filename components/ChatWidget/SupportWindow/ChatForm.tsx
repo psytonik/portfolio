@@ -37,7 +37,7 @@ const ChatForm = () => {
  	return (
 		<Flex flex={1} direction="column" h="100%" >
 
-			<Flex flex={1} direction="column" pt={3} mx={3} overflowY="scroll" sx={{scrollbarWidth:'none'}}>
+			<Flex flex={1} direction="column" pt={3} mx={3} sx={{scrollbarWidth:'none'}}>
 
 				{question && (
 					<Flex bg="blue.200" w="fit-content" minW="100px" borderRadius="lg" p={3} m={1} alignSelf="flex-end">

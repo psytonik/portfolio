@@ -45,7 +45,7 @@ const ChatForm = () => {
 					</Flex>
 				)}
 				{answer && (
-					<Flex bg="gray.100" w="fit-content" minW="100px" borderRadius="lg" p={3} m={1} >
+					<Flex bg="gray.500" w="fit-content" minW="100px" borderRadius="lg" p={3} m={1} >
 						<Text style={{whiteSpace:'pre-wrap'}}>{answer}</Text>
 					</Flex>
 				)}

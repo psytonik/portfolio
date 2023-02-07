@@ -22,7 +22,6 @@ const ChatForm = () => {
 					max_tokens:4000
 				})
 			})
-			console.log(response, 'response');
 			const data = await response.json();
 			if(data.error){
 				return setAnswer(data.error.message);
@@ -34,7 +33,6 @@ const ChatForm = () => {
 		getAnswer(question).then()
 		return () => {};
 	}, [question]);
-
  	return (
 		<Flex flex={1} direction="column" h="100%" >
 
@@ -47,7 +45,7 @@ const ChatForm = () => {
 				)}
 				{answer && (
 					<Flex bg="gray.500" w="fit-content" minW="100px" borderRadius="lg" p={3} m={1} >
-						<Text style={{whiteSpace:'pre-wrap'}}>{answer}</Text>
+						<Text style={{whiteSpace:'pre-wrap'}}>{answer.trim()}</Text>
 					</Flex>
 				)}
 

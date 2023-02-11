@@ -1,14 +1,14 @@
 import type {NextPage} from 'next'
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
-import {Container, Divider, Flex, LinkBox, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Container, Divider} from "@chakra-ui/react";
 import ProfileSection from "../section/ProfileSection/ProfileSection";
 import TechStackSection from "../section/TechStackSection/TechStackSection";
 import useSWR from "swr";
 import ReactGA from "react-ga4";
 import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
-import {MotionBox} from "../utils/motionBox";
+import HackSection from "../section/HackSection/HackSection";
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -63,52 +63,10 @@ const Home: NextPage = () => {
                   <Divider my={7} />
                   <TechStackSection/>
                   <Divider my={7} />
-                  {ipInfo && (
-                      <MotionBox whileHover={{ y: -5 }}>
-                          <LinkBox
-                              p={4}
-                              display={{ md: "flex" }}
-                              borderWidth={1}
-                              margin={2}
-                              rounded={'10px'}
-                              _hover={{
-                                  borderColor: "blue.500",
-                              }}
-                              borderColor={useColorModeValue("gray.300", "gray.700")}
-                          >
-                              <Stack
-                                  as="div"
-                                  isInline
-                                  spacing={[1, 2]}
-                                  p={4}
-                                  justifyContent="space-between"
-                                  alignItems="center"
-                                  w={["100%", "90%", "90%"]}
-                                  maxW='container.lg'
-                                  mx="auto"
-                              >
-                                  <Flex
-                                      flexDirection={["column", "column", "row"]}
-                                      flexFlow={["column-reverse", "column-reverse"]}
-                                      justifyContent={["center", "space-between"]}
-                                      alignItems="center"
-                                      w="100%"
-                                  >
-                                      <Text>
-                                          IP Address: {ipInfo.ipAddress}
-                                      </Text>
-                                      <Text>
-                                          City: {ipInfo.city}
-                                      </Text>
-                                      <Text>
-                                          Country: {ipInfo.countryName}
-                                      </Text>
-                                  </Flex>
-                              </Stack>
-                          </LinkBox>
-                      </MotionBox>
-
-                  )}
+                  {ipInfo ? (
+                      <HackSection hack={ipInfo}/>
+                  ): ''}
+                  <Divider my={7} />
               </Container>
           </main>
       </div>

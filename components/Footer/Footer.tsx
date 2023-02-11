@@ -50,6 +50,7 @@ const Footer = () => {
 					))}
 				</Box>
 			</Flex>
+
 		</Stack>
 	);
 };

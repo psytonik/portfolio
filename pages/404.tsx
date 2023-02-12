@@ -17,7 +17,7 @@ const NotFound = () => {
 			<Head>
 				<title>Anthony Fink | 404 Page Not Found</title>
 				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="preload prefetch" href="/profile.png" as="image"  crossOrigin="anonymous"/>
+				<link rel="preload prefetch" href="/profile.png" as="image"/>
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

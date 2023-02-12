@@ -20,7 +20,7 @@ const About:NextPage = () => {
 			<Head>
 				<title>Anthony Fink | About Me</title>
 				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="icon preload" href="/profile.png" crossOrigin="anonymous"/>
+				<link rel="icon preload prefetch" href="/profile.png" as="image" crossOrigin="anonymous"/>
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

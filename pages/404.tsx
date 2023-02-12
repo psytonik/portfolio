@@ -8,8 +8,8 @@ const NotFound = () => {
 
 	const router = useRouter()
 
-	const handleClick = () => {
-		router.push("/")
+	const handleClick = async () => {
+		await router.push("/")
 	}
 
 	return (
@@ -17,7 +17,7 @@ const NotFound = () => {
 			<Head>
 				<title>Anthony Fink | 404 Page Not Found</title>
 				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="icon preload" href="/profile.png"  crossOrigin="anonymous"/>
+				<link rel="icon preload prefetch" href="/profile.png" as="image"  crossOrigin="anonymous"/>
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

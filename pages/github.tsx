@@ -13,7 +13,8 @@ const Github:NextPage = ({repos}:any) => {
 			<Head>
 				<title>Anthony Fink | Github</title>
 				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="icon" href="/profile.png" />
+				<link rel="icon preload prefetch" href="/profile.png" as="image" crossOrigin="anonymous"/>
+
 			</Head>
 
 			<main>

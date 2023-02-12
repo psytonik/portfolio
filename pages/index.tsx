@@ -41,10 +41,10 @@ const Home: NextPage = () => {
               <meta name='msapplication-tap-highlight' content='no' />
               <meta name='theme-color' content='#000000' />
 
-              <link rel='apple-touch-icon preload' as="image" href='/profile.png' />
-              <link rel='apple-touch-icon preload' as="image" sizes='152x152' href='/profile.png' />
-              <link rel='apple-touch-icon preload' as="image" sizes='180x180' href='/profile.png' />
-              <link rel='apple-touch-icon preload' as="image" sizes='167x167' href='/profile.png' />
+              <link rel='apple-touch-icon preload' as="image" href='/profile.png' crossOrigin="anonymous" />
+              <link rel='apple-touch-icon preload' as="image" sizes='152x152' href='/profile.png' crossOrigin="anonymous" />
+              <link rel='apple-touch-icon preload' as="image" sizes='180x180' href='/profile.png' crossOrigin="anonymous" />
+              <link rel='apple-touch-icon preload' as="image" sizes='167x167' href='/profile.png' crossOrigin="anonymous" />
 
               <link rel='icon preload'  as="image" type='image/png' sizes='32x32' href='/profile.png' crossOrigin="anonymous"   />
               <link rel='icon preload' as="image" type='image/png' sizes='16x16' href='/profile.png' crossOrigin="anonymous" />

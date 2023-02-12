@@ -46,16 +46,16 @@ const Home: NextPage = () => {
               <link rel='apple-touch-icon preload' as="image" sizes='180x180' href='/profile.png' />
               <link rel='apple-touch-icon preload' as="image" sizes='167x167' href='/profile.png' />
 
-              <link rel='icon preload'  as="image" type='image/png' sizes='32x32' href='/profile.png' />
-              <link rel='icon preload' as="image" type='image/png' sizes='16x16' href='/profile.png' />
-              <link rel='manifest preload' href='/manifest.json' />
-              <link rel='mask-icon preload' as="image" href='/profile.png' color='#5bbad5' />
-              <link rel='shortcut icon preload' href='/favicon.ico' as="image"/>
-              <link rel='stylesheet preload' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' as="font"/>
+              <link rel='icon preload'  as="image" type='image/png' sizes='32x32' href='/profile.png' crossOrigin="anonymous"   />
+              <link rel='icon preload' as="image" type='image/png' sizes='16x16' href='/profile.png' crossOrigin="anonymous" />
+              <link rel='manifest preload' href='/manifest.json' crossOrigin="anonymous"/>
+              <link rel='mask-icon preload' as="image" href='/profile.png' color='#5bbad5' crossOrigin="anonymous"/>
+              <link rel='shortcut icon preload' href='/favicon.ico' as="image" crossOrigin="anonymous"/>
+              <link rel='stylesheet preload' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' as="font" crossOrigin="anonymous"/>
 
               <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
               <meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-              <link rel="icon preload" href="/profile.png" as="image"/>
+              <link rel="icon preload" href="/profile.png" as="image" crossOrigin="anonymous"/>
           </Head>
           <main className="website-counter">
               <Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

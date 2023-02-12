@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
-import {Box, Button, Container, Flex, Heading, SlideFade, Spacer} from "@chakra-ui/react";
+import {Button, Container, Flex, Heading, SlideFade, Spacer} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 
 const NotFound = () => {
@@ -17,7 +17,7 @@ const NotFound = () => {
 			<Head>
 				<title>Anthony Fink | 404 Page Not Found</title>
 				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="icon" href="/profile.png" />
+				<link rel="icon preload" href="/profile.png"  crossOrigin="anonymous"/>
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>

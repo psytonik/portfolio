@@ -43,17 +43,17 @@ const Home: NextPage = () => {
               <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
               <meta name="description" content="Anthony Fink | Full Stack Web Developer" />
 
-              <link rel='apple-touch-icon preload prefetch' as="image" href='/profile.png' />
-              <link rel='apple-touch-icon preload prefetch' as="image" sizes='152x152' href='/profile.png'  />
-              <link rel='apple-touch-icon preload prefetch' as="image" sizes='180x180' href='/profile.png'  />
-              <link rel='apple-touch-icon preload prefetch' as="image" sizes='167x167' href='/profile.png'  />
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' href='/profile.png' />
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='152x152' href='/profile.png'  />
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='180x180' href='/profile.png'  />
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='167x167' href='/profile.png'  />
 
               <link rel='preload prefetch'  as="image" type='image/png' sizes='32x32' href='/profile.png'    />
               <link rel='preload prefetch' as="image" type='image/png' sizes='16x16' href='/profile.png'  />
+              <link rel="preload prefetch" href="/profile.png" as="image" type='image/png'/>
               <link rel='manifest' href='/manifest.json' />
               <link rel='prefetch' href='/favicon.ico' as="image"/>
               <link rel='prefetch' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' as="font" crossOrigin="anonymous"/>
-              <link rel="preload prefetch" href="/profile.png" as="image"/>
 
           </Head>
           <main className="website-counter">

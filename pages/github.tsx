@@ -12,7 +12,7 @@ const Github:NextPage = ({repos}:any) => {
 			<Head>
 				<title>Anthony Fink | Github</title>
 				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="preload prefetch" href="/profile.png" as="image"/>
+				<link rel="preload prefetch" href="/profile.png" as="image" type='image/png'/>
 
 			</Head>
 

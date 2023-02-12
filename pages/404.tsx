@@ -3,8 +3,9 @@ import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {Button, Container, Flex, Heading, SlideFade, Spacer} from "@chakra-ui/react";
 import {useRouter} from "next/router";
+import {NextPage} from "next";
 
-const NotFound = () => {
+const NotFound: NextPage = () => {
 
 	const router = useRouter()
 

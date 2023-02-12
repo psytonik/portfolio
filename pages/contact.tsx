@@ -21,8 +21,9 @@ import ErrorMessage from "@components/ErrorMessage/ErrorMessage";
 import emailJs, {init} from '@emailjs/browser';
 
 import {gaEvents} from "../utils/gaEvents";
+import {NextPage} from "next";
 
-const Contact = () => {
+const Contact: NextPage = () => {
 
 	init('user_HkihIZQIylIbB3W952VlF');
 

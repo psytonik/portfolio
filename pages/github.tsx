@@ -7,7 +7,6 @@ import getGithubRepos from "../constants/getGithubRepos";
 import GithubSection from "../section/GithubSection/GithubSection";
 
 const Github:NextPage = ({repos}:any) => {
-
 	return (
 		<div className={styles.container}>
 			<Head>

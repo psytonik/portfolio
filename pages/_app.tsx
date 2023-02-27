@@ -6,6 +6,8 @@ import Layout from "@components/Layout/LayOut";
 import {useRouter} from "next/router";
 import ReactGA from "react-ga4";
 import {NextPage} from "next";
+import { appWithTranslation } from 'next-i18next'
+
 
 const colors = {
     brand: {
@@ -31,4 +33,4 @@ const MyApp: NextPage<AppProps> =({ Component, pageProps }: AppProps) => {
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp);

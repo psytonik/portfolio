@@ -10,6 +10,7 @@ export const styles = {
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
 		backgroundSize: '84px',
+		opacity:1,
 		// Size
 		width: '84px',
 		height: '84px',

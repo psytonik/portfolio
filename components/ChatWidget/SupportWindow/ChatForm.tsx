@@ -7,6 +7,8 @@ const ChatForm = () => {
 	const [question,setQuestion] = useState<string | undefined>('');
 	const [answer, setAnswer] = useState<string | undefined>('');
 	const [loading, setLoading] = useState<boolean>(false);
+	const rememberedInputs = {};
+
 	const getAnswer = async (question:string| undefined) => {
 		if(question !== undefined && question.length > 1){
 			setAnswer('')
@@ -21,7 +23,8 @@ const ChatForm = () => {
 					model:'text-davinci-003',
 					prompt:`${question}`,
 					temperature:1,
-					max_tokens:4000
+					n: 1,
+					max_tokens:4000,
 				})
 			})
 			const data = await response.json();
@@ -30,7 +33,7 @@ const ChatForm = () => {
 				return setAnswer(data.error.message);
 			}
 			setLoading(false)
-			return setAnswer(data.choices[0].text);
+			return setAnswer(data.choices[0].text.trim());
 		}
 	}
 	useEffect(() => {

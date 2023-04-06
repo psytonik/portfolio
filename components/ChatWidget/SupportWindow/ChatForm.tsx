@@ -13,7 +13,7 @@ const ChatForm = () => {
 		if(question !== undefined && question.length > 1){
 			setAnswer('')
 			setLoading(true);
-			const response = await fetch('https://corsd.netlify.app/https://api.openai.com/v1/completions',{
+			const response = await fetch('https://api.openai.com/v1/completions',{
 				method:"POST",
 				headers: {
 					"Content-Type":"application/json",

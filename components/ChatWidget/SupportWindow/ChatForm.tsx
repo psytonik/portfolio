@@ -40,7 +40,6 @@ const ChatForm = () => {
 		if(question !== undefined && question.length > 1) {
 			setAnswer('')
 			setLoading(true);
-			console.log(typeof question, 'QUESTION FROM FRONT')
 			const response = await fetch('/api/smartchat',{
 				method: 'POST',
 				headers: {
@@ -60,7 +59,7 @@ const ChatForm = () => {
 	};
 
 	useEffect(() => {
-		getAnswerTest(question).then()
+		getAnswer(question).then()
 		return () => {};
 	}, [question]);
  	return (

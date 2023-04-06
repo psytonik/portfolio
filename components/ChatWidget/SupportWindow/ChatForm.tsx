@@ -13,7 +13,7 @@ const ChatForm = () => {
 		if(question !== undefined && question.length > 1){
 			setAnswer('')
 			setLoading(true);
-			const response = await fetch('https://corsd.herokuapp.com/https://api.openai.com/v1/completions',{
+			const response = await fetch('https://corsd.netlify.app/https://api.openai.com/v1/completions',{
 				method:"POST",
 				headers: {
 					"Content-Type":"application/json",
@@ -36,8 +36,31 @@ const ChatForm = () => {
 			return setAnswer(data.choices[0].text.trim());
 		}
 	}
+	const getAnswerTest = async(question:string| undefined) => {
+		if(question !== undefined && question.length > 1) {
+			setAnswer('')
+			setLoading(true);
+			console.log(typeof question, 'QUESTION FROM FRONT')
+			const response = await fetch('/api/smartchat',{
+				method: 'POST',
+				headers: {
+					"Content-Type":"application/json",
+				},
+				body: JSON.stringify({question})
+			});
+			const data = await response.json();
+
+			if(data.error){
+				setLoading(false)
+				return setAnswer(data.error.message);
+			}
+			setLoading(false);
+			return setAnswer(data.answer)
+		}
+	};
+
 	useEffect(() => {
-		getAnswer(question).then()
+		getAnswerTest(question).then()
 		return () => {};
 	}, [question]);
  	return (

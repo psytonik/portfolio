@@ -29,46 +29,60 @@ const Home: NextPage = () => {
           <Head>
               <title>Anthony Fink | Home</title>
 
-              <meta name='application-name' content='Anthony Fink | Full Stack Web Developer' />
-              <meta name='apple-mobile-web-app-capable' content='yes' />
-              <meta name='apple-mobile-web-app-status-bar-style' content='default' />
-              <meta name='apple-mobile-web-app-title' content='Anthony Fink | Full Stack Web Developer' />
-              <meta name='description' content='Anthony Fink Resume | Full Stack Web Developer | Progressive Web Application with NextJs' />
-              <meta name='format-detection' content='telephone=no' />
-              <meta name='mobile-web-app-capable' content='yes' />
-              <meta name='msapplication-config' content='/icons/browserconfig.xml' />
-              <meta name='msapplication-TileColor' content='#2B5797' />
-              <meta name='msapplication-tap-highlight' content='no' />
-              <meta name='theme-color' content='#000000' />
+              <meta name='application-name' content='Anthony Fink | Full Stack Web Developer'/>
+              <meta name='apple-mobile-web-app-capable' content='yes'/>
+              <meta name='apple-mobile-web-app-status-bar-style' content='default'/>
+              <meta name='apple-mobile-web-app-title' content='Anthony Fink | Full Stack Web Developer'/>
+              <meta name='description'
+                    content='Anthony Fink Resume | Full Stack Web Developer | Progressive Web Application with NextJs'/>
+              <meta name='format-detection' content='telephone=no'/>
+              <meta name='mobile-web-app-capable' content='yes'/>
+              <meta name='msapplication-config' content='/icons/browserconfig.xml'/>
+              <meta name='msapplication-TileColor' content='#2B5797'/>
+              <meta name='msapplication-tap-highlight' content='no'/>
+              <meta name='theme-color' content='#000000'/>
               <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
-              <meta name="description" content="Anthony Fink | Full Stack Web Developer" />
+              <meta name="description" content="Anthony Fink | Full Stack Web Developer"/>
 
-              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' href='/profile.png' />
-              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='152x152' href='/profile.png'  />
-              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='180x180' href='/profile.png'  />
-              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='167x167' href='/profile.png'  />
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' href='/profile.png'/>
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='152x152'
+                    href='/profile.png'/>
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='180x180'
+                    href='/profile.png'/>
+              <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='167x167'
+                    href='/profile.png'/>
 
-              <link rel='preload prefetch'  as="image" type='image/png' sizes='32x32' href='/profile.png'    />
-              <link rel='preload prefetch' as="image" type='image/png' sizes='16x16' href='/profile.png'  />
+              <link rel='preload prefetch' as="image" type='image/png' sizes='32x32' href='/profile.png'/>
+              <link rel='preload prefetch' as="image" type='image/png' sizes='16x16' href='/profile.png'/>
               <link rel="preload prefetch" href="/profile.png" as="image" type='image/png'/>
-              <link rel='manifest' href='/manifest.json' />
+              <link rel='manifest' href='/manifest.json'/>
               <link rel='prefetch' href='/favicon.ico' as="image"/>
-              <link rel='prefetch' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' as="font" crossOrigin="anonymous"/>
+              <link rel='prefetch' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' as="font"
+                    crossOrigin="anonymous"/>
 
+
+              <meta property="og:title" content="יועץ.ת מימון- אזור ירושלים"/>
+              <meta property="og:type" content="website"/>
+              <meta property="og:image" content="https://www.5555.co.il/uploadImages/systemFiles/HR3.jpg"/>
+              <meta property="og:url" content="https://land.5555.co.il/ShareApps/"/>
+              <meta property="og:description" content="מכירת מימון לרכב ללקוחות חדשים וחוזרים תוך חשיפה ויצירת מודעות לפתרונות המימון של החברה,
+		תפעול שוטף וליווי הלקוח עד לסגירת העסקה, עבודה שוטפת מול ממשקים רבים ומתן מענה לגורמים פנים וחוץ ארגוניים.
+		עבודה במשרה מלאה עם נכונות לשעות נוספות. המשרה ממוקמת בסוכנות רכב בירושלים."/>
+              <meta property="og:locale" content="he_IL"/>
           </Head>
           <main className="website-counter">
               <Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
                   <ProfileSection song={spotify.data}/>
-                  <Divider my={7} />
+                  <Divider my={7}/>
                   <TechStackSection/>
-                  <Divider my={7} />
+                  <Divider my={7}/>
                   {ipInfo ? (
                       <HackSection hack={ipInfo}/>
-                  ): ''}
-                  <Divider my={7} />
+                  ) : ''}
+                  <Divider my={7}/>
               </Container>
           </main>
       </div>
-  )
+    )
 }
 export default Home;

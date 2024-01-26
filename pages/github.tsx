@@ -54,7 +54,7 @@ const Github:NextPage = ({repos}:any) => {
 	);
 };
 export const getStaticProps = async () => {
-	const repos = await getGithubRepos({username: 'psytonik'});
+	const repos = await getGithubRepos();
 	return {
 		props: {
 			repos,

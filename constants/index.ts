@@ -11,12 +11,9 @@ import {TbBrandNextjs} from "react-icons/tb";
 import {CgAlbum} from "react-icons/cg";
 
 const menuLinks = [
-	// { name: "Home", route: "/"},
 	{ name: "About Me", route: "/about" },
-	// { name: "Experience", route: "/experience" },
-	// { name: "Projects", route: "/projects" },
 	{ name: 'Github', route: '/github' },
-	// { name: 'Articles', route: '/article' },
+	{ name: "Portfolio", route: "/portfolio" },
 	{ name: "Contact", route: "/contact" },
 ]
 

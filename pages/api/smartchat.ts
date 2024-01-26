@@ -27,7 +27,6 @@ export default async function smartChat(req:Request,res:Response){
 		max_tokens: 3600,
 		temperature: 0
 	})
-	// console.log(await response.data.choices[0]?.message.content,' RESPONSE')
 	const pared = await response.data.choices[0]?.message.content;
 	return res.status(200).json({answer:pared})
 }

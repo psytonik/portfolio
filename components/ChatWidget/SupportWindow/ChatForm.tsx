@@ -6,7 +6,6 @@ const ChatForm = () => {
 	const [question,setQuestion] = useState<string | undefined>('');
 	const [answer, setAnswer] = useState<string | undefined>('');
 	const [loading, setLoading] = useState<boolean>(false);
-	const rememberedInputs = {};
 
 	const getAnswer = async(question:string| undefined) => {
 		if(question !== undefined && question.length > 1) {

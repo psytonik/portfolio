@@ -8,7 +8,7 @@ const Layout = ({children}:any) => {
 		<>
 			<NavBar/>
 				<main>{children}</main>
-				<ChatWidget/>
+				{/*<ChatWidget/>*/}
 			<Footer/>
 		</>
 	);

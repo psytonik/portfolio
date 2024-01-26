@@ -2,7 +2,9 @@ import React from 'react';
 import {NextPage} from "next";
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
-import {Container, Flex, Text} from "@chakra-ui/react";
+import {Container} from "@chakra-ui/react";
+import ProjectsSection from "../section/ProjectsSection/ProjectsSection";
+
 
 const PortfolioPage: NextPage = () => {
 	// @ts-ignore
@@ -45,11 +47,7 @@ const PortfolioPage: NextPage = () => {
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
-					<Flex height="75vh" alignItems="center" justifyContent="center">
-					<Text fontSize='2xl' color='gray.600' textAlign="center">
-						Coming Soon
-					</Text>
-					</Flex>
+					<ProjectsSection/>
 				</Container>
 			</main>
 		</div>

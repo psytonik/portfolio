@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Flex, Spinner, Stack, Text} from "@chakra-ui/react";
 import BottomBar from "@components/ChatWidget/SupportWindow/BotomBar";
-import * as process from "process";
 
 const ChatForm = () => {
 	const [question,setQuestion] = useState<string | undefined>('');
@@ -9,34 +8,7 @@ const ChatForm = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const rememberedInputs = {};
 
-	const getAnswer = async (question:string| undefined) => {
-		if(question !== undefined && question.length > 1){
-			setAnswer('')
-			setLoading(true);
-			const response = await fetch('https://api.openai.com/v1/completions',{
-				method:"POST",
-				headers: {
-					"Content-Type":"application/json",
-					"Authorization":`Bearer ${process.env.NEXT_PUBLIC_CHAT_GPT}`
-				},
-				body: JSON.stringify({
-					model:'text-davinci-003',
-					prompt:`${question}`,
-					temperature:1,
-					n: 1,
-					max_tokens:4000,
-				})
-			})
-			const data = await response.json();
-			if(data.error){
-				setLoading(false)
-				return setAnswer(data.error.message);
-			}
-			setLoading(false)
-			return setAnswer(data.choices[0].text.trim());
-		}
-	}
-	const getAnswerTest = async(question:string| undefined) => {
+	const getAnswer = async(question:string| undefined) => {
 		if(question !== undefined && question.length > 1) {
 			setAnswer('')
 			setLoading(true);
@@ -48,7 +20,6 @@ const ChatForm = () => {
 				body: JSON.stringify({question})
 			});
 			const data = await response.json();
-
 			if(data.error){
 				setLoading(false)
 				return setAnswer(data.error.message);

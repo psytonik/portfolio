@@ -1,6 +1,8 @@
 import OpenAIApi from "openai";
 import {Request, Response} from "express";
 
+
+
 export default async function smartChat(req:Request,res:Response){
 	const openAi: OpenAIApi = new OpenAIApi({
 		apiKey: process.env.NEXT_PUBLIC_CHAT_GPT,
@@ -11,7 +13,7 @@ export default async function smartChat(req:Request,res:Response){
 		if(!question) {
 			return res.status(422).json({"error":"Unprocessable Entity"})
 		}
-		const response: OpenAIApi.Chat.ChatCompletion = await openAi.chat.completions.create({
+		const stream: any = openAi.beta.chat.completions.stream({
 			model: 'gpt-4-0125-preview',
 			messages:[
 				{
@@ -23,9 +25,11 @@ export default async function smartChat(req:Request,res:Response){
 					content:question
 				}
 			],
+			stream: true
 		});
-		const pared = response.choices[0]?.message.content;
-		return res.status(200).json({answer:pared})
+
+		const chatCompletion = await stream.finalChatCompletion();
+		return res.status(200).json({answer:chatCompletion.choices[0]?.message.content})
 	} catch (error: any) {
 		return res.status(502).json({ answer: error.message})
 	}

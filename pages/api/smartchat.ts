@@ -26,7 +26,7 @@ export default async function smartChat(req:Request,res:Response){
 		});
 		const pared = response.choices[0]?.message.content;
 		return res.status(200).json({answer:pared})
-	} catch (error) {
-		console.log(error)
+	} catch (error: any) {
+		return res.status(502).json({ answer: error.message})
 	}
 }

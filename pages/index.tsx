@@ -56,8 +56,7 @@ const Home: NextPage = () => {
               <meta name='msapplication-TileColor' content='#2B5797'/>
               <meta name='msapplication-tap-highlight' content='no'/>
               <meta name='theme-color' content='#000000'/>
-              <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"></meta>
-              <meta name="description" content="Anthony Fink | Full Stack Web Developer"/>
+              <meta property="og:title" content="Anthony Fink | Full Stack Web Developer"/>
 
               <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' href='/profile.png'/>
               <link rel='apple-touch-icon preload prefetch' as="image" type='image/png' sizes='152x152'

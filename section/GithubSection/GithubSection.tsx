@@ -30,7 +30,7 @@ const GithubSection = ({repos}:any) => {
 
 			<Box my={5}>
 				<SimpleGrid columns={[1, 1, 2]} spacing={4} mt={4}>
-					{repos.map((repo:any)=>(
+					{repos?.map((repo:any)=>(
 						<GithubCard
 							name={repo.name}
 							description={repo.description}

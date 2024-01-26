@@ -1,18 +1,18 @@
-import {Configuration, OpenAIApi} from "openai";
+import OpenAIApi from "openai";
 import {Request, Response} from "express";
 
 export default async function smartChat(req:Request,res:Response){
-	const config = new Configuration({
+	const openAi: OpenAIApi = new OpenAIApi({
 		apiKey: process.env.NEXT_PUBLIC_CHAT_GPT
 	});
 
-	const openAi = new OpenAIApi(config);
+
 	const {question} = req.body;
 
 	if(!question) {
 		return res.status(422).json({"error":"Unprocessable Entity"})
 	}
-	const response:any = await openAi.createChatCompletion({
+	const response:any = await openAi.chat.completions.create({
 		model: 'gpt-3.5-turbo',
 		messages:[
 			{

@@ -1,5 +1,17 @@
 import React from 'react';
-import {Heading, SlideFade, Stack, Flex, Text, useColorModeValue, Center, LinkBox, Box, Image} from "@chakra-ui/react";
+import {
+	Heading,
+	SlideFade,
+	Stack,
+	Flex,
+	Text,
+	useColorModeValue,
+	Center,
+	LinkBox,
+	Box,
+	Image,
+	Tag
+} from "@chakra-ui/react";
 import UnderlineText from '@components/UnderlineText/UnderlineText';
 import { FaProjectDiagram } from "react-icons/fa";
 import Paragraph from "@components/Paragraph/Paragraph";
@@ -95,11 +107,18 @@ const ProjectsSection: React.FC = () => {
 								providing a memorable and enjoyable experience for visitors exploring the world of DJ PsyToniK.
 							</Text>
 						</Stack>
-						{/*{project.tech.map((tech) => (*/}
-						{/*	<Tag size="sm" padding="0 5px" key={tech} mx={1}>*/}
-						{/*		{tech}*/}
-						{/*	</Tag>*/}
-						{/*))}*/}
+							<Tag size="sm" padding="0 5px" mx={1}>
+								Next Js
+							</Tag>
+							<Tag size="sm" padding="0 5px" mx={1}>
+								Tailwind Css
+							</Tag>
+							<Tag size="sm" padding="0 5px" mx={1}>
+								React
+							</Tag>
+							<Tag size="sm" padding="0 5px" mx={1}>
+								TypeScript
+							</Tag>
 					</LinkBox>
 				</Center>
 			</MotionBox>

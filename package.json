@@ -5,6 +5,9 @@
     "build": "next build",
     "start": "next start"
   },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "dependencies": {
     "@chakra-ui/hooks": "^2.0.4",
     "@chakra-ui/icons": "^2.0.2",

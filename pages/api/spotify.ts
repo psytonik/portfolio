@@ -11,13 +11,15 @@ const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 const refresh: any = process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN;
 
 const getAccessToken = async () => {
-	const response = await fetch(TOKEN_ENDPOINT, {
+
+	const response: Response = await fetch(TOKEN_ENDPOINT, {
 		method: 'POST',
 		mode: "cors",
 		headers: {
 			Authorization:`Basic ${basic}`,
 			'Content-Type' : 'application/x-www-form-urlencoded',
 		},
+		// @ts-ignore
 		body: new URLSearchParams({
 			'grant_type': 'refresh_token',
 			refresh_token: refresh

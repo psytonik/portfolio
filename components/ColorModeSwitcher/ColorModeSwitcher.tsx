@@ -11,10 +11,10 @@ const ColorModeSwitcher = (props:any) => {
 		toggleColorMode();
 	};
 
-	return (
-		<Tooltip
 
-		>
+	return (
+		// @ts-ignore
+		<Tooltip>
 			<IconButton
 				size="md"
 				fontSize="md"

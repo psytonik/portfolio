@@ -9,7 +9,9 @@ const iconProps = {
 };
 
 const Footer = () => {
+
 	return (
+		// @ts-ignore
 		<Stack
 			as="footer"
 			isInline
@@ -38,6 +40,7 @@ const Footer = () => {
 
 				<Box textAlign="center">
 					{siteConfig.author.accounts.map((sc, index) => (
+						// @ts-ignore
 						<IconButton
 							key={index}
 							as={Link}
@@ -46,7 +49,8 @@ const Footer = () => {
 							aria-label={sc.name}
 							colorScheme={sc.type}
 							icon={<sc.icon/>}
-							{...iconProps}						/>
+							{...iconProps}
+						/>
 					))}
 				</Box>
 			</Flex>

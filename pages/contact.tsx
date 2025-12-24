@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Head from "next/head";
 import {
@@ -16,21 +16,17 @@ import {
 	useColorModeValue,
 	useToast,
 } from "@chakra-ui/react";
-import ErrorMessage from "@components/ErrorMessage/ErrorMessage";
-
-import emailJs, {init} from '@emailjs/browser';
-
-import {gaEvents} from "../utils/gaEvents";
-import {NextPage} from "next";
+import { NextPage } from "next";
+import emailJs, { init } from '@emailjs/browser';
+import { gaEvents } from "../utils/gaEvents";
 
 const Contact: NextPage = () => {
-
 	init('user_HkihIZQIylIbB3W952VlF');
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
-	const [error,setError] = useState('');
+	const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
 	const [isLoading, setIsLoading] = useState(false);
 
 	const toast = useToast();
@@ -38,132 +34,146 @@ const Contact: NextPage = () => {
 		setName('');
 		setEmail('');
 		setMessage('');
+		setErrors({});
 		setIsLoading(false);
-	}
+	};
 
-	const handleSubmit = (e: any) => {
+	// ✅ Email format validation
+	const validateEmailFormat = (email: string) => {
+		const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		return regex.test(email);
+	};
+
+	const validateForm = () => {
+		const newErrors: typeof errors = {};
+		if (!name.trim()) newErrors.name = 'Name is required';
+		if (!email.trim()) {
+			newErrors.email = 'Email is required';
+		} else if (!validateEmailFormat(email)) {
+			newErrors.email = 'Invalid email format';
+		}
+		if (!message.trim()) newErrors.message = 'Message is required';
+		setErrors(newErrors);
+		return Object.keys(newErrors).length === 0;
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (!validateForm()) return; // Stop if validation fails
+
 		setIsLoading(true);
 
-		emailJs.send('service_oewo82m',
-			'template_koi7q1g',
-			{
-			from_name: name,
-			from_email: email,
-			message: message,}
-		).then(() => {
+		try {
+			// ✅ Check domain validity via API
+			const response = await fetch('/api/validate-domain', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email }),
+			});
+
+			const data = await response.json();
+			if (!data.isValid){
+				setErrors({...errors, email:data.error});
+				setIsLoading(false);
+				toast({
+					title: data.error,
+					description: 'Please enter a valid email address.',
+					status: 'error',
+					duration: 9000,
+					isClosable: true,
+				});
+
+				return;
+			}
+
+			// ✅ Send email via EmailJS
+			await emailJs.send('service_oewo82m', 'template_koi7q1g', {
+				from_name: name,
+				from_email: email,
+				message: message,
+			});
+
 			toast({
 				title: 'Email sent.',
-				description: 'You had successfully sent the email. I will reply your email ASAP. Thank you!',
+				description: 'You successfully sent the email. I will reply ASAP. Thank you!',
 				status: 'success',
 				duration: 9000,
-				isClosable: true
-			})
+				isClosable: true,
+			});
+
 			clearInput();
-			gaEvents.eventMailSent()
-		}, (error) => {
+			gaEvents.eventMailSent();
+		} catch (error: any) {
 			toast({
 				title: 'Email not sent.',
-				description: error.text,
+				description: error.message || 'Something went wrong.',
 				status: 'error',
 				duration: 9000,
-				isClosable: true
-			})
-			setError(error.text);
+				isClosable: true,
+			});
 			clearInput();
-		});
-	}
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	return (
 		<div className={styles.container}>
 			<Head>
 				<title>Anthony Fink | Contact</title>
-				<meta name="description" content="Anthony Fink | Full Stack Web Developer"/>
-				<link rel="preload prefetch" href="/profile.png" as="image" type='image/png'/>
-
-				<title>Anthony Fink | Full Stack Web Developer</title>
-				<meta name="description"
-					  content="Full Stack Web Developer from Israel 🇮🇱🇷🇺 Focused on React Js, Node Js, Type Script. Passion in beautiful UI / UX 🔥"/>
-
-				<meta property="og:url" content="https://anthonyfink.dev/"/>
-				<meta property="og:type" content="website"/>
-				<meta property="og:title" content="Anthony Fink | Full Stack Web Developer"/>
-				<meta property="og:description" content="Anthony Fink | Full Stack Web Developer"/>
-				<meta property="og:image"
-					  content="https://ogcdn.net/e4b8c678-7bd5-445d-ba03-bfaad510c686/v3/anthonyfink.dev/Anthony%20Fink%20%7C%20Full%20Stack%20Web%20Developer/https%3A%2F%2Fopengraph.b-cdn.net%2Fproduction%2Fdocuments%2F5d1c467f-d464-4950-832a-535389bd85b2.png%3Ftoken%3DeMS2h3LuCP-yWNFNavE37SRx0uCWuxLsHqOCQAhwWpk%26height%3D910%26width%3D885%26expires%3D33242278201/og.png"/>
-				<meta name="twitter:card" content="summary_large_image"/>
-				<meta property="twitter:domain" content="anthonyfink.dev"/>
-				<meta property="twitter:url" content="https://anthonyfink.dev/"/>
-				<meta name="twitter:title" content="Anthony Fink | Full Stack Web Developer"/>
-				<meta name="twitter:description"
-					  content="Full Stack Web Developer from Israel 🇮🇱🇷🇺 Focused on React Js, Node Js, Type Script. Passion in beautiful UI / UX 🔥"/>
-				<meta name="twitter:image"
-					  content="https://ogcdn.net/e4b8c678-7bd5-445d-ba03-bfaad510c686/v3/anthonyfink.dev/Anthony%20Fink%20%7C%20Full%20Stack%20Web%20Developer/https%3A%2F%2Fopengraph.b-cdn.net%2Fproduction%2Fdocuments%2F5d1c467f-d464-4950-832a-535389bd85b2.png%3Ftoken%3DeMS2h3LuCP-yWNFNavE37SRx0uCWuxLsHqOCQAhwWpk%26height%3D910%26width%3D885%26expires%3D33242278201/og.png"/>
-
-				<meta name='application-name' content='Anthony Fink | Full Stack Web Developer'/>
-				<meta name='apple-mobile-web-app-capable' content='yes'/>
-				<meta name='apple-mobile-web-app-status-bar-style' content='default'/>
-				<meta name='apple-mobile-web-app-title' content='Anthony Fink | Full Stack Web Developer'/>
-
-				<meta name='format-detection' content='telephone=no'/>
-				<meta name='mobile-web-app-capable' content='yes'/>
-				<meta name='msapplication-config' content='/icons/browserconfig.xml'/>
-				<meta name='msapplication-TileColor' content='#2B5797'/>
-				<meta name='msapplication-tap-highlight' content='no'/>
-				<meta name='theme-color' content='#000000'/>
-
+				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
 			</Head>
 			<main>
 				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
 					<SlideFade in offsetX={80}>
 						<Flex width="full" align="center" justifyContent="center">
-							<Box
-								p={8}
-								maxWidth="container.lg"
-								borderWidth={1}
-								borderRadius={8}
-								boxShadow="lg"
-							>
+							<Box p={8} maxWidth="container.lg" borderWidth={1} borderRadius={8} boxShadow="lg">
 								<Heading size={'lg'}>Let's get in touch. Leave me your message. 💬</Heading>
 								<Text fontSize={'lg'} my={2}>Do not hesitate to contact me!</Text>
 								<Box my={4} textAlign="left">
 									<form onSubmit={handleSubmit}>
-										{error && <ErrorMessage message={error}/>}
-										<FormControl isRequired>
-											<FormLabel key={'name'}>Name</FormLabel>
+										<FormControl isRequired mb={4}>
+											<FormLabel>Name</FormLabel>
 											<Input
 												id='name'
-												type={'text'}
+												type='text'
 												value={name}
 												placeholder="Your Name"
 												size="lg"
-												onChange={event => setName(event.currentTarget.value)}
+												onChange={(e) => setName(e.target.value)}
 												bg={useColorModeValue('gray.100', 'gray.900')}
 											/>
+											{errors.name && <Text color="red.500" fontSize="sm">{errors.name}</Text>}
 										</FormControl>
-										<FormControl isRequired mt={6}>
-											<FormLabel key={'email'}>Email</FormLabel>
+
+										<FormControl isRequired mb={4}>
+											<FormLabel>Email</FormLabel>
 											<Input
 												id='email'
-												type={'email'}
+												type='email'
 												value={email}
 												placeholder='Email'
 												size="lg"
-												onChange={event => setEmail(event.currentTarget.value)}
+												onChange={(e) => setEmail(e.target.value)}
 												bg={useColorModeValue('gray.100', 'gray.900')}
 											/>
+											{errors.email && <Text color="red.500" fontSize="sm">{errors.email}</Text>}
 										</FormControl>
-										<FormControl isRequired mt={6}>
-											<FormLabel key={'message'}>Message</FormLabel>
+
+										<FormControl isRequired mb={4}>
+											<FormLabel>Message</FormLabel>
 											<Textarea
 												id='message'
 												value={message}
 												placeholder="Type your message..."
 												size="lg"
-												onChange={event => setMessage(event.currentTarget.value)}
+												onChange={(e) => setMessage(e.target.value)}
 												bg={useColorModeValue('gray.100', 'gray.900')}
 											/>
+											{errors.message && <Text color="red.500" fontSize="sm">{errors.message}</Text>}
 										</FormControl>
+
 										<Button
 											variant="solid"
 											type="submit"

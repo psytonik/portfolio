@@ -1,12 +1,12 @@
 import React from 'react';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { menuLinks } from '../../constants';
 import {
 	Avatar,
 	Box, Flex, HStack, IconButton,
-	Link as ChakraLink, Stack,
+	Stack,
 	useColorModeValue
 } from '@chakra-ui/react';
 import ColorModeSwitcher from "@components/ColorModeSwitcher/ColorModeSwitcher";
@@ -17,21 +17,13 @@ const NavBar = () => {
 	const navItem = (
 		<>
 			{menuLinks.map(link=>(
-				<NextLink href={link.route} key={link.name} passHref>
-					<ChakraLink
-						href={link.route}
-						px={2}
-						py={1}
-						rounded={"md"}
-						_hover={{
-							textDecoration: "none",
-							bg: useColorModeValue("gray.200", "gray.900")
-						}}
-						onClick={isOpen ? onClose : onOpen}
-					>
-						{link.name}
-					</ChakraLink>
-				</NextLink>
+				<Link
+					key={link.name}
+					href={link.route}
+					onClick={isOpen ? onClose : onOpen}
+				>
+					{link.name}
+				</Link>
 			))}
 		</>
 	);
@@ -56,15 +48,13 @@ const NavBar = () => {
 					/>
 
 					<HStack spacing={8} alignItems={'center'}>
-						<NextLink href="/">
+						<Link href="/">
 							<Avatar
-								as={ChakraLink}
 								size='sm'
-								href="/"
 								src="/profile.png"
 								_hover={{ borderColor: "blue.500" }}
 							/>
-						</NextLink>
+						</Link>
 
 						<HStack as="nav" spacing="4" display={{ base: 'none', md: 'flex' }}>
 							{navItem}

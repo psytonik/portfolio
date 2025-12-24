@@ -36,12 +36,10 @@ const ProjectsSection: React.FC = () => {
 
 
 			<Paragraph Paragraph fontSize="lg" lineHeight={1.6} my={5}>
-				<Text>
 					Below is a compilation of various projects that I have personally undertaken and completed in the past.
 					These projects represent a diverse range of my skills, experiences, and areas of expertise. Each endeavor showcases my dedication to problem-solving,
 					creativity, and the ability to bring ideas to fruition. Whether they involve web development, application programming, design, or other domains,
 					these projects collectively reflect the breadth and depth of my past contributions to various fields.
-				</Text>
 			</Paragraph>
 
 			<MotionBox whileHover={{ y: -5 }}>

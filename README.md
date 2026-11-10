@@ -1,21 +1,65 @@
-# Next.js
+# anthonyfink.dev
 
-## Deploy your own
+Personal portfolio of Anthony Fink — Full Stack Web Developer.
+Live at **[anthonyfink.dev](https://anthonyfink.dev)**.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+Built with Next.js (pages router), TypeScript and Chakra UI, deployed on Vercel.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## Getting started
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
+npm install
+npm run dev                  # http://localhost:3000
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Scripts
+
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint (`eslint-config-next`) |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm test` | Unit tests (Vitest) |
+| `npm run format` | Format with Prettier |
+
+## Environment variables
+
+None. Third-party IDs that are public by design (Google Analytics measurement ID,
+EmailJS service/template/public key) are committed in the source.
+
+## Project structure
+
+```
+components/   Reusable UI (Card, Seo, NavBar, Footer, …)
+section/      Page-level composites (ProfileSection, ProjectsSection, …)
+pages/        Routes and API routes
+constants/    Site config, project list, tech stack, structured data
+styles/       Chakra theme and global CSS
+utils/        Analytics events, rate limiting
+public/       Static assets, locales, CV
+```
+
+### Content lives in `constants/`
+
+Projects, career history, education and the tech stack are plain data —
+edit `constants/projects.ts` and `constants/index.ts` rather than the components.
+
+## API routes
+
+| Route | Purpose |
+| --- | --- |
+| `POST /api/validate-domain` | MX lookup for the contact form; rate limited per IP |
+| `GET /sitemap.xml` | Generated from the route list in `pages/sitemap.xml.ts` |
+
+## Deployment
+
+Pushing to `main` deploys to Vercel. 
+
+## Internationalisation
+
+`next-i18next` is wired up with `en`, `he` and `ru` locales, but the interface is
+not translated yet — only a couple of keys exist in `public/locales/`. Automatic
+locale detection is therefore **off**, so visitors are not redirected to a
+half-translated page. `/he` and `/ru` still resolve if visited directly.

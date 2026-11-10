@@ -1,198 +1,232 @@
-import React, { useState } from 'react';
-import styles from '../styles/Home.module.css';
-import Head from "next/head";
+import React, {useRef, useState} from 'react';
+import {NextPage} from "next";
 import {
 	Box,
 	Button,
-	Container,
 	Flex,
 	FormControl,
+	FormErrorMessage,
 	FormLabel,
-	Heading,
 	Input,
-	SlideFade,
+	Link,
+	SimpleGrid,
+	Stack,
 	Text,
 	Textarea,
-	useColorModeValue,
 	useToast,
 } from "@chakra-ui/react";
-import { NextPage } from "next";
-import emailJs, { init } from '@emailjs/browser';
-import { gaEvents } from "../utils/gaEvents";
+import emailJs from '@emailjs/browser';
+import Seo from "@components/Seo/Seo";
+import {buildContactJsonLd} from "../constants/structuredData";
+import Page from "@components/Page/Page";
+import Card from "@components/Card/Card";
+import SectionHeading from "@components/SectionHeading/SectionHeading";
+import {siteConfig} from "../constants";
+import {gaEvents} from "../utils/gaEvents";
+
+const EMAILJS_PUBLIC_KEY = 'user_HkihIZQIylIbB3W952VlF';
+const EMAILJS_SERVICE = 'service_oewo82m';
+const EMAILJS_TEMPLATE = 'template_koi7q1g';
+
+type FieldErrors = { name?: string; email?: string; message?: string };
+
+const isEmailFormatValid = (email: string) =>
+	/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
 const Contact: NextPage = () => {
-	init('user_HkihIZQIylIbB3W952VlF');
-
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
-	const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+	const [errors, setErrors] = useState<FieldErrors>({});
 	const [isLoading, setIsLoading] = useState(false);
 
+	const nameRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null);
+	const messageRef = useRef<HTMLTextAreaElement>(null);
+
 	const toast = useToast();
-	const clearInput = () => {
-		setName('');
-		setEmail('');
-		setMessage('');
-		setErrors({});
-		setIsLoading(false);
-	};
 
-	// ✅ Email format validation
-	const validateEmailFormat = (email: string) => {
-		const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		return regex.test(email);
-	};
-
-	const validateForm = () => {
-		const newErrors: typeof errors = {};
-		if (!name.trim()) newErrors.name = 'Name is required';
+	const validateForm = (): FieldErrors => {
+		const newErrors: FieldErrors = {};
+		if (!name.trim()) newErrors.name = 'Please enter your name.';
 		if (!email.trim()) {
-			newErrors.email = 'Email is required';
-		} else if (!validateEmailFormat(email)) {
-			newErrors.email = 'Invalid email format';
+			newErrors.email = 'Please enter your email address.';
+		} else if (!isEmailFormatValid(email)) {
+			newErrors.email = 'This email address does not look right. Check it for typos.';
 		}
-		if (!message.trim()) newErrors.message = 'Message is required';
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
+		if (!message.trim()) newErrors.message = 'Please write a message.';
+		return newErrors;
+	};
+
+	const focusFirstInvalid = (fieldErrors: FieldErrors) => {
+		if (fieldErrors.name) nameRef.current?.focus();
+		else if (fieldErrors.email) emailRef.current?.focus();
+		else if (fieldErrors.message) messageRef.current?.focus();
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (!validateForm()) return; // Stop if validation fails
+		const fieldErrors = validateForm();
+		setErrors(fieldErrors);
+		if (Object.keys(fieldErrors).length > 0) {
+			focusFirstInvalid(fieldErrors);
+			return;
+		}
 
 		setIsLoading(true);
 
 		try {
-			// ✅ Check domain validity via API
 			const response = await fetch('/api/validate-domain', {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ email }),
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({email}),
 			});
-
 			const data = await response.json();
-			if (!data.isValid){
-				setErrors({...errors, email:data.error});
-				setIsLoading(false);
-				toast({
-					title: data.error,
-					description: 'Please enter a valid email address.',
-					status: 'error',
-					duration: 9000,
-					isClosable: true,
-				});
 
+			if (!data.validDomain) {
+				const domainError = {email: 'This email domain cannot receive mail. Check the address and try again.'};
+				setErrors(domainError);
+				focusFirstInvalid(domainError);
 				return;
 			}
 
-			// ✅ Send email via EmailJS
-			await emailJs.send('service_oewo82m', 'template_koi7q1g', {
+			await emailJs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
 				from_name: name,
 				from_email: email,
 				message: message,
-			});
+			}, EMAILJS_PUBLIC_KEY);
 
 			toast({
-				title: 'Email sent.',
-				description: 'You successfully sent the email. I will reply ASAP. Thank you!',
+				title: 'Message sent',
+				description: 'Thank you! I will reply as soon as I can.',
 				status: 'success',
-				duration: 9000,
+				duration: 5000,
 				isClosable: true,
 			});
 
-			clearInput();
+			setName('');
+			setEmail('');
+			setMessage('');
+			setErrors({});
 			gaEvents.eventMailSent();
-		} catch (error: any) {
+		} catch {
+			// Keep what the user typed so they can retry
 			toast({
-				title: 'Email not sent.',
-				description: error.message || 'Something went wrong.',
+				title: 'Message not sent',
+				description: `Something went wrong. Please try again or email me at ${siteConfig.email}.`,
 				status: 'error',
 				duration: 9000,
 				isClosable: true,
 			});
-			clearInput();
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
 	return (
-		<div className={styles.container}>
-			<Head>
-				<title>Anthony Fink | Contact</title>
-				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-			</Head>
-			<main>
-				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
-					<SlideFade in offsetX={80}>
-						<Flex width="full" align="center" justifyContent="center">
-							<Box p={8} maxWidth="container.lg" borderWidth={1} borderRadius={8} boxShadow="lg">
-								<Heading size={'lg'}>Let's get in touch. Leave me your message. 💬</Heading>
-								<Text fontSize={'lg'} my={2}>Do not hesitate to contact me!</Text>
-								<Box my={4} textAlign="left">
-									<form onSubmit={handleSubmit}>
-										<FormControl isRequired mb={4}>
-											<FormLabel>Name</FormLabel>
-											<Input
-												id='name'
-												type='text'
-												value={name}
-												placeholder="Your Name"
-												size="lg"
-												onChange={(e) => setName(e.target.value)}
-												bg={useColorModeValue('gray.100', 'gray.900')}
-											/>
-											{errors.name && <Text color="red.500" fontSize="sm">{errors.name}</Text>}
-										</FormControl>
+		<>
+			<Seo
+				title="Contact"
+				description="Get in touch with Anthony Fink about a project, a role or a collaboration."
+				path="/contact"
+				jsonLd={buildContactJsonLd()}
+			/>
+			<Page>
+				<SimpleGrid columns={{base: 1, md: 2}} spacing={{base: 8, md: 12}}>
+					<Box>
+						<SectionHeading
+							as="h1"
+							title="Let's get in touch"
+							description="Have a project, a role or an idea to discuss? Send me a message and I will get back to you."
+						/>
+						<Stack spacing={1} mx={-3}>
+							{siteConfig.author.accounts.map((account) => (
+								<Link
+									key={account.name}
+									href={account.url}
+									isExternal
+									display="flex"
+									alignItems="center"
+									gap={3}
+									px={3}
+									py={3}
+									rounded="md"
+									transition="background-color .2s ease"
+									_hover={{bg: 'subtle', textDecoration: 'none'}}
+								>
+									<Flex boxSize={10} align="center" justify="center" rounded="md" bg="subtle" fontSize="lg" flexShrink={0}>
+										<account.icon aria-hidden/>
+									</Flex>
+									<Box minW={0}>
+										<Text fontWeight={600} fontSize="sm">{account.name}</Text>
+										<Text color="muted" fontSize="sm" noOfLines={1}>{account.handle}</Text>
+									</Box>
+								</Link>
+							))}
+						</Stack>
+					</Box>
 
-										<FormControl isRequired mb={4}>
-											<FormLabel>Email</FormLabel>
-											<Input
-												id='email'
-												type='email'
-												value={email}
-												placeholder='Email'
-												size="lg"
-												onChange={(e) => setEmail(e.target.value)}
-												bg={useColorModeValue('gray.100', 'gray.900')}
-											/>
-											{errors.email && <Text color="red.500" fontSize="sm">{errors.email}</Text>}
-										</FormControl>
+					<Card p={{base: 5, md: 8}}>
+						<form onSubmit={handleSubmit} noValidate>
+							<Stack spacing={5}>
+								<FormControl isRequired isInvalid={Boolean(errors.name)}>
+									<FormLabel>Name</FormLabel>
+									<Input
+										ref={nameRef}
+										name="name"
+										type="text"
+										autoComplete="name"
+										size="lg"
+										value={name}
+										onChange={(e) => setName(e.target.value)}
+									/>
+									<FormErrorMessage>{errors.name}</FormErrorMessage>
+								</FormControl>
 
-										<FormControl isRequired mb={4}>
-											<FormLabel>Message</FormLabel>
-											<Textarea
-												id='message'
-												value={message}
-												placeholder="Type your message..."
-												size="lg"
-												onChange={(e) => setMessage(e.target.value)}
-												bg={useColorModeValue('gray.100', 'gray.900')}
-											/>
-											{errors.message && <Text color="red.500" fontSize="sm">{errors.message}</Text>}
-										</FormControl>
+								<FormControl isRequired isInvalid={Boolean(errors.email)}>
+									<FormLabel>Email</FormLabel>
+									<Input
+										ref={emailRef}
+										name="email"
+										type="email"
+										autoComplete="email"
+										size="lg"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+									<FormErrorMessage>{errors.email}</FormErrorMessage>
+								</FormControl>
 
-										<Button
-											variant="solid"
-											type="submit"
-											width="full"
-											mt={4}
-											isLoading={isLoading}
-											loadingText='Submitting'
-											colorScheme={'blue'}
-										>
-											Send Message
-										</Button>
-									</form>
-								</Box>
-							</Box>
-						</Flex>
-					</SlideFade>
-				</Container>
-			</main>
-		</div>
+								<FormControl isRequired isInvalid={Boolean(errors.message)}>
+									<FormLabel>Message</FormLabel>
+									<Textarea
+										ref={messageRef}
+										name="message"
+										size="lg"
+										rows={6}
+										value={message}
+										onChange={(e) => setMessage(e.target.value)}
+									/>
+									<FormErrorMessage>{errors.message}</FormErrorMessage>
+								</FormControl>
+
+								<Button
+									type="submit"
+									colorScheme="brand"
+									size="lg"
+									width="full"
+									isLoading={isLoading}
+									loadingText="Sending"
+								>
+									Send message
+								</Button>
+							</Stack>
+						</form>
+					</Card>
+				</SimpleGrid>
+			</Page>
+		</>
 	);
 };
 

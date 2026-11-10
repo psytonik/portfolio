@@ -1,39 +1,38 @@
+import {promises as dns} from 'dns';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {getClientIp, rateLimit} from '../../utils/rateLimit';
 
-import dns from 'dns';
-import { NextApiRequest, NextApiResponse } from 'next';
+const MAX_EMAIL_LENGTH = 254; // RFC 5321
+const EMAIL_PATTERN = /^[^\s@]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z]{2,}$/;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
+	if (req.method !== 'POST') {
+		res.setHeader('Allow', 'POST');
+		return res.status(405).json({error: 'Method not allowed'});
+	}
 
-    const { email } = req.body;
+	if (!rateLimit(`validate-domain:${getClientIp(req.headers)}`, 10, 60_000)) {
+		return res.status(429).json({error: 'Too many requests. Please wait a minute and try again.'});
+	}
 
-    if (!email || !email.includes('@')) {
-        return res.status(400).json({ error: 'Invalid email format' });
-    }
+	const {email} = req.body ?? {};
 
-    const domain = email.split('@')[1];
+	if (typeof email !== 'string' || email.length > MAX_EMAIL_LENGTH || !EMAIL_PATTERN.test(email)) {
+		return res.status(400).json({error: 'Invalid email format', validDomain: false});
+	}
 
-    try {
-        const isValid = await new Promise<boolean>((resolve) => {
-            dns.resolveMx(domain, (err, addresses) => {
-                if (err || addresses.length === 0) {
-                    resolve(false); // Domain exists but no MX records
-                } else {
-                    resolve(true);
-                }
-            });
-        });
-        if(!isValid) {
-            return res.status(400).json({ error: 'Invalid domain address',validDomain: isValid });
-        }
-        // ✅ Always return 200 with result
-        return res.status(200).json({ validDomain: isValid });
-    } catch (error) {
-        return res.status(500).json({
-            error: 'Server error',
-            details: error instanceof Error ? error.message : 'Unknown error',
-        });
-    }
+	const domain = email.split('@')[1].toLowerCase();
+
+	try {
+		const addresses = await dns.resolveMx(domain);
+		const validDomain = addresses.length > 0;
+
+		if (!validDomain) {
+			return res.status(400).json({error: 'This domain cannot receive mail', validDomain});
+		}
+		return res.status(200).json({validDomain});
+	} catch {
+		// NXDOMAIN, SERVFAIL and friends all mean "we cannot deliver mail here"
+		return res.status(400).json({error: 'This domain cannot receive mail', validDomain: false});
+	}
 }

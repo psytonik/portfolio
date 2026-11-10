@@ -1,80 +1,77 @@
 import React from 'react';
-import {Flex, Heading, LinkBox, LinkOverlay, Stack, useColorModeValue, Image, Tag, Text } from "@chakra-ui/react";
+import {Box, Flex, Heading, Image, Link, LinkOverlay, ListItem, Tag, Text, UnorderedList, Wrap, WrapItem} from "@chakra-ui/react";
+import {FiArrowUpRight} from "react-icons/fi";
+import Card from "@components/Card/Card";
+import {Experience} from "../../constants";
 
-const CompanyCard = ({ title, role, skills, period, logo, alt, url, colorMode }:any) => {
+const CompanyCard: React.FC<{ item: Experience }> = ({item}) => {
 	return (
-		<LinkBox
-			px={4}
-			py={5}
-			borderWidth="1px"
-			rounded="xl"
-			bg={useColorModeValue("white", "gray.800")}
-			borderColor={useColorModeValue("gray.100", "gray.700")}
-			_hover={{ borderColor: "blue.500" }}
-			position="relative"
-		>
-			<LinkOverlay
-				href={url} rel="noopener" isExternal
-			>
-				<Flex justifyContent="space-between">
-					<Flex>
-						<Image
-							rounded="full"
-							w={16}
-							h={16}
-							objectFit="cover"
-							src={logo}
-							bg={useColorModeValue("white", "white")}
-							alt={alt}
-						/>
-						<Stack spacing={2} pl={3} align="left">
-							<Heading
-								fontSize="xl"
-								color={`mode.${colorMode}.career.text`}
-							>
-								{title}
-							</Heading>
-							<Heading
-								fontSize="sm"
-								color={`mode.${colorMode}.career.subtext`}
-							>
-								{role}
-							</Heading>
-							<Stack
-								spacing={1}
-								mt={3}
-								alignItems="center"
-								isInline
-								display={["none", "none", "flex", "flex"]}
-							>
-								{skills.map((skill:any) => (
-									<Tag size="sm" padding="0 5px" key={skill}>
-										{skill}
-									</Tag>
-								))}
-							</Stack>
-						</Stack>
-					</Flex>
-					<Stack display={["none", "none", "flex", "flex"]}>
-						<Text fontSize={14} color={`mode.${colorMode}.career.subtext`}>
-							{period}
+		<Card as="article" interactive={Boolean(item.url)} p={5}>
+			<Flex gap={4}>
+				<Image
+					flexShrink={0}
+					boxSize={14}
+					rounded="lg"
+					objectFit="contain"
+					bg="white"
+					borderWidth="1px"
+					p={1}
+					src={item.logo}
+					alt={item.alt}
+				/>
+				<Box flex="1" minW={0}>
+					<Flex justify="space-between" gap={2} direction={{base: 'column', md: 'row'}}>
+						<Heading as="h3" fontSize="lg">
+							{item.url ? (
+								<LinkOverlay href={item.url} isExternal>{item.title}</LinkOverlay>
+							) : item.title}
+						</Heading>
+						<Text fontSize="sm" color="muted" whiteSpace="nowrap">
+							{item.period}
 						</Text>
-					</Stack>
-				</Flex>
-				<Stack
-					spacing={1}
-					mt={3}
-					alignItems="center"
-					display={["flex", "flex", "none", "none"]}
-				>
-					{skills.map((skill:any) => (
-						<Tag size="sm" padding="0 5px" key={skill}>
-							{skill}
-						</Tag>
-					))}
-				</Stack>
-			</LinkOverlay>
-		</LinkBox>
+					</Flex>
+					<Text color="muted" mt={1}>
+						{item.role}
+					</Text>
+					{item.highlights && (
+						<UnorderedList color="muted" spacing={2} mt={4} pl={1}>
+							{item.highlights.map((highlight) => (
+								<ListItem key={highlight} lineHeight={1.6}>{highlight}</ListItem>
+							))}
+						</UnorderedList>
+					)}
+					{item.links && (
+						<Wrap spacing={4} mt={2}>
+							{item.links.map((link) => (
+								<WrapItem key={link.url}>
+									<Link
+										href={link.url}
+										isExternal
+										color="accent"
+										fontWeight={500}
+										fontSize="sm"
+										display="inline-flex"
+										alignItems="center"
+										gap={1}
+										minH="44px"
+									>
+										{link.label}
+										<FiArrowUpRight aria-hidden/>
+									</Link>
+								</WrapItem>
+							))}
+						</Wrap>
+					)}
+					<Wrap mt={4}>
+						{item.skills.map((skill) => (
+							<WrapItem key={skill}>
+								<Tag size="sm">{skill}</Tag>
+							</WrapItem>
+						))}
+					</Wrap>
+				</Box>
+			</Flex>
+		</Card>
 	);
 };
 

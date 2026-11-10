@@ -1,114 +1,61 @@
 import React from 'react';
 import {NextPage} from "next";
-import styles from '../styles/Home.module.css';
-import Head  from 'next/head';
-import {Box, Container, Flex, Heading, SlideFade, Stack, useColorMode, VStack} from "@chakra-ui/react";
-import UnderlineText from "@components/UnderlineText/UnderlineText";
-import {AiFillStar} from "react-icons/ai";
+import {Box, Stack} from "@chakra-ui/react";
+import Seo from "@components/Seo/Seo";
+import {buildAboutJsonLd} from "../constants/structuredData";
+import Page from "@components/Page/Page";
+import SectionHeading from "@components/SectionHeading/SectionHeading";
 import Paragraph from "@components/Paragraph/Paragraph";
-import {BsFillBriefcaseFill} from "react-icons/bs";
-import {companies, educations} from "../constants";
-import {MotionBox} from "../utils/motionBox";
 import CompanyCard from "@components/CompanyCard/CompanyCard";
-import {FaGraduationCap} from "react-icons/fa";
+import {companies, educations} from "../constants";
 
-const About:NextPage = () => {
-	const { colorMode } = useColorMode();
-
+const About: NextPage = () => {
 	return (
-		<div className={styles.container}>
-			<Head>
-				<title>Anthony Fink | About Me</title>
-				<meta name="description" content="Anthony Fink | Full Stack Web Developer" />
-				<link rel="preload prefetch" href="/profile.png" as="image" type='image/png'/>
-			</Head>
-			<main>
-				<Container maxW="container.lg" mt={['5', '10']} mb={['5', '10']}>
-					<SlideFade in offsetX={80}>
-						<Box>
-							<UnderlineText>
-								<Flex alignItems={'center'}>
-									<Stack pr={3}>
-										<AiFillStar size={'30px'} />
-									</Stack>
-									<Heading>
-										About Me
-									</Heading>
-								</Flex>
-							</UnderlineText>
-
-							<Paragraph fontSize="lg" lineHeight={1.6} my={5}>
-								I am a Web developer with 2 years ++ working experience. My developer journey started with JavaScript during my internship.
-								After graduation, this journey continued with React Js, and Node Js 👔
+		<>
+			<Seo
+				title="About"
+				description="About Anthony Fink: career, education and the technologies I work with."
+				path="/about"
+				jsonLd={buildAboutJsonLd()}
+			/>
+			<Page>
+				<Stack spacing={{base: 12, md: 16}}>
+					<Box as="section">
+						<SectionHeading as="h1" title="About me"/>
+						<Stack spacing={4} maxW="3xl">
+							<Paragraph>
+								I am a full stack developer. My journey started with JavaScript during my internship and
+								grew through React and Node.js into building products end to end, most recently Traveller,
+								an AI walking-route planner I built and launched solo for iOS, Android and the web.
 							</Paragraph>
-							<Paragraph fontSize="lg" lineHeight={1.6} my={5}>
-								Serious highly motivated candidate, excellent interpersonal skills,
-								High level of troubleshooting andcapability of multitasking, team player but can also work independently.
-								Always open to learn something new. Looking for Full Stack or Front-End Positions 🔥
+							<Paragraph>
+								Highly motivated, with strong interpersonal skills, solid troubleshooting and the ability
+								to multitask. I am a team player who can also work independently, and I am always open
+								to learning something new. Looking for Full Stack or Front-End positions.
 							</Paragraph>
+						</Stack>
+					</Box>
 
-							<Flex alignItems="center" my={10}>
-								<UnderlineText>
-									<Flex alignItems={'center'}>
-										<Stack pr={3}>
-											<BsFillBriefcaseFill size={'30px'} />
-										</Stack>
+					<Box as="section">
+						<SectionHeading title="Career"/>
+						<Stack spacing={4}>
+							{companies.map((company) => (
+								<CompanyCard key={company.title} item={company}/>
+							))}
+						</Stack>
+					</Box>
 
-										<Heading>Career</Heading>
-									</Flex>
-								</UnderlineText>
-							</Flex>
-
-							<VStack spacing={4} marginBottom={6} align="left" mx={[0, 0, 6]} mt={5}>
-								{companies.map((company,index)=>(
-									<MotionBox whileHover={{ y: -5 }} key={index}>
-										<CompanyCard
-											key={index}
-											title={company.title}
-											role={company.role}
-											skills={company.skills}
-											period={company.period}
-											logo={company.logo}
-											url={company.url}
-											colorMode={colorMode}
-										/>
-									</MotionBox>
-								))}
-							</VStack>
-
-							<Flex alignItems="center" my={10}>
-								<UnderlineText>
-									<Flex alignItems="center">
-										<Stack pr={3}>
-											<FaGraduationCap size={'30px'} />
-										</Stack>
-										<Heading>Education</Heading>
-									</Flex>
-								</UnderlineText>
-							</Flex>
-
-							<VStack spacing={4} marginBottom={6} align="left" mx={[0, 0, 6]} mt={5}>
-								{educations.map((education, index) => (
-									<MotionBox whileHover={{ y: -5 }} key={index}>
-										<CompanyCard
-											key={index}
-											title={education.title}
-											role={education.role}
-											skills={education.skills}
-											period={education.period}
-											logo={education.logo}
-											url={education.url}
-											colorMode={colorMode}
-										/>
-									</MotionBox>
-								))}
-							</VStack>
-
-						</Box>
-					</SlideFade>
-				</Container>
-			</main>
-		</div>
+					<Box as="section">
+						<SectionHeading title="Education"/>
+						<Stack spacing={4}>
+							{educations.map((education) => (
+								<CompanyCard key={education.title} item={education}/>
+							))}
+						</Stack>
+					</Box>
+				</Stack>
+			</Page>
+		</>
 	);
 };
 

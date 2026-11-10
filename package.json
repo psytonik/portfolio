@@ -3,40 +3,42 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "dependencies": {
-    "@chakra-ui/hooks": "^2.0.4",
-    "@chakra-ui/icons": "^2.0.2",
-    "@chakra-ui/provider": "^2.0.9",
-    "@chakra-ui/react": "^2.2.4",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^2.10.10",
     "@emailjs/browser": "^3.6.2",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "axios": "^1.13.2",
-    "express": "^5.2.1",
-    "framer-motion": "^6.3.16",
+    "framer-motion": "^12.43.0",
     "i18next": "^22.4.10",
-    "moment": "^2.29.4",
-    "next": "latest",
+    "next": "16.1.1",
     "next-i18next": "^13.1.5",
-    "next-pwa": "^5.5.5",
-    "next-themes": "^0.2.0",
-    "openai": "^4.26.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-ga4": "^1.4.1",
     "react-i18next": "^12.2.0",
-    "react-icons": "^4.4.0",
-    "swr": "^1.3.0",
-    "typed.js": "^2.0.12"
+    "react-icons": "^5.7.0",
+    "swr": "^2.5.1"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^17.0.35",
-    "@types/react": "18.0.15",
-    "@types/react-dom": "18.0.6",
+    "@types/node": "^22.20.5",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.4.7",
-    "typescript": "5.9.3"
-  }
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.1.1",
+    "prettier": "^3.9.10",
+    "typescript": "5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "name": "portfolio",
+  "version": "1.0.0"
 }

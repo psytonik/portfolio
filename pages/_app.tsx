@@ -1,36 +1,46 @@
 import "../styles/globals.css";
-import type { AppProps } from 'next/app';
-import {ChakraProvider} from "@chakra-ui/provider";
-import { extendTheme } from '@chakra-ui/react';
-import Layout from "@components/Layout/LayOut";
+import type {AppProps} from 'next/app';
+import {useEffect} from "react";
 import {useRouter} from "next/router";
+import {Inter} from "next/font/google";
+import {ChakraProvider} from "@chakra-ui/react";
 import ReactGA from "react-ga4";
-import {NextPage} from "next";
-import { appWithTranslation } from 'next-i18next'
+import {appWithTranslation} from 'next-i18next';
+import Layout from "@components/Layout/LayOut";
+import theme from "../styles/theme";
 
+const inter = Inter({subsets: ['latin', 'cyrillic'], display: 'swap'});
 
-const colors = {
-    brand: {
-        900: '#1a365d',
-        800: '#153e75',
-        700: '#2a69ac',
-    },
-}
+const GA_ID = "G-9DGEB5XE14";
 
-const MyApp: NextPage<AppProps> =({ Component, pageProps }: AppProps) => {
+const MyApp = ({Component, pageProps}: AppProps) => {
+	const router = useRouter();
 
-    const router = useRouter();
-    ReactGA.send({ hitType: "pageview", page: router.pathname });
+	useEffect(() => {
+		ReactGA.initialize(GA_ID);
+		ReactGA.send({hitType: "pageview", page: window.location.pathname});
 
-    const theme = extendTheme({ colors })
+		const onRouteChange = (url: string) => {
+			ReactGA.send({hitType: "pageview", page: url});
+		};
+		router.events.on('routeChangeComplete', onRouteChange);
+		return () => router.events.off('routeChangeComplete', onRouteChange);
+	}, [router.events]);
 
-  return (
-      <ChakraProvider theme={theme}>
-          <Layout>
-              <Component {...pageProps}/>
-          </Layout>
-      </ChakraProvider>
-  )
-}
+	return (
+		<>
+			<style jsx global>{`
+				:root {
+					--font-inter: ${inter.style.fontFamily};
+				}
+			`}</style>
+			<ChakraProvider theme={theme}>
+				<Layout>
+					<Component {...pageProps}/>
+				</Layout>
+			</ChakraProvider>
+		</>
+	);
+};
 
 export default appWithTranslation(MyApp);

@@ -1,45 +1,26 @@
 import React from 'react';
-import { MotionBox } from 'utils/motionBox';
-import {Flex, IconButton, LinkBox, LinkOverlay, useColorModeValue,Text} from "@chakra-ui/react";
+import {Flex, LinkOverlay, Text} from "@chakra-ui/react";
+import {IconType} from "react-icons";
+import Card from "@components/Card/Card";
 
-const StackCard = ({ stack }:any) => {
+interface Stack {
+	name: string;
+	url: string;
+	icon: IconType;
+}
+
+const StackCard: React.FC<{ stack: Stack }> = ({stack}) => {
 	return (
-		<MotionBox>
-			<LinkBox
-				as="article"
-				w="100%"
-				p={4}
-				borderColor={useColorModeValue("gray.300", "gray.700")}
-				borderRadius={5}
-				borderWidth="1px"
-				transition=".5s"
-				cursor="pointer"
-				display="flex"
-				role="group"
-				_hover={{
-					borderColor: "blue.500",
-				}}
-			>
-				<Flex alignItems="center" justifyContent="space-between">
-					<IconButton
-						as="a"
-						aria-label={stack?.name}
-						mr={3}
-						_groupHover={{ color: "blue.500" }}
-						icon={<stack.icon fontSize="20px"/>}
-					/>
-					<LinkOverlay href={stack?.url} rel="noopener" isExternal>
-						<Flex>
-							<Text
-								size="sm"
-								_hover={{ color: "blue.500" }}
-							>{stack?.name}</Text>
-						</Flex>
-					</LinkOverlay>
-				</Flex>
-			</LinkBox>
-
-		</MotionBox>
+		<Card interactive role="group" p={4}>
+			<Flex align="center" gap={3}>
+				<Text as="span" fontSize="xl" color="muted" transition="color .2s ease" _groupHover={{color: 'accent'}} aria-hidden>
+					<stack.icon/>
+				</Text>
+				<LinkOverlay href={stack.url} isExternal fontWeight={500}>
+					{stack.name}
+				</LinkOverlay>
+			</Flex>
+		</Card>
 	);
 };
 

@@ -1,23 +1,23 @@
-const withPWA = require('next-pwa');
-const { i18n } = require('./next-i18next.config')
+const {i18n} = require('./next-i18next.config')
 
 /** @type {import('next').NextConfig} */
-module.exports = withPWA({
-  i18n,
-  reactStrictMode: true,
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true
-  },
-
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
-    ],
-  },
-  turbopack: {}
-});
+module.exports = {
+	i18n,
+	reactStrictMode: true,
+	images: {
+		formats: ['image/avif', 'image/webp'],
+	},
+	async headers() {
+		return [
+			{
+				source: '/:path*',
+				headers: [
+					{key: 'X-Content-Type-Options', value: 'nosniff'},
+					{key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin'},
+					{key: 'X-Frame-Options', value: 'SAMEORIGIN'},
+					{key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()'},
+				],
+			},
+		]
+	},
+};

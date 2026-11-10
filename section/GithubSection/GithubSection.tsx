@@ -1,49 +1,40 @@
 import React from 'react';
-import {Box, Flex, Heading, SimpleGrid, SlideFade, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, SimpleGrid, Text} from "@chakra-ui/react";
+import {FiGithub} from "react-icons/fi";
 import GithubCard from "@components/GithubCard/GithubCard";
-import UnderlineText from "@components/UnderlineText/UnderlineText";
-import {AiFillGithub} from "react-icons/ai";
+import SectionHeading from "@components/SectionHeading/SectionHeading";
+import Card from "@components/Card/Card";
+import {GithubRepo} from "../../constants/getGithubRepos";
 
-const GithubSection = ({repos}:any) => {
+const PROFILE_URL = "https://github.com/psytonik";
+
+const GithubSection: React.FC<{ repos: GithubRepo[] }> = ({repos}) => {
 	return (
-		<SlideFade in offsetY={80} delay={0.2}>
-			<UnderlineText>
-				<Flex alignItems={'center'}>
-					<Stack pr={3}>
-						<AiFillGithub size={'30px'} style={{marginBottom:'12px'}} />
-					</Stack>
-					<Heading
-						as="h1"
-						fontSize={{ base: "24px", md: "30px", lg: "36px" }}
-						mb={3}
-					>
-						Github
-					</Heading>
-				</Flex>
+		<Box as="section">
+			<SectionHeading
+				as="h1"
+				title="GitHub"
+				description="My public repositories."
+				action={
+					<Button as="a" href={PROFILE_URL} target="_blank" rel="noopener noreferrer" variant="outline" size="sm" leftIcon={<FiGithub/>}>
+						View profile
+					</Button>
+				}
+			/>
 
-			</UnderlineText>
-
-			<div style={{marginTop:'20px', marginBottom:'20px'}}>
-				<Text>List of my top featured github repositories. 🔖</Text>
-				<Text>Feel free to pay a visit and don't forget to leave me a star! ⭐ </Text>
-			</div>
-
-			<Box my={5}>
-				<SimpleGrid columns={[1, 1, 2]} spacing={4} mt={4}>
-					{repos?.map((repo:any)=>(
-						<GithubCard
-							name={repo.name}
-							description={repo.description}
-							language={repo.language}
-							url={repo.clone_url}
-							stargazers_count={repo.stargazers_count}
-							forks_count={repo.forks_count}
-							key={repo.name}
-						/>
+			{repos.length > 0 ? (
+				<SimpleGrid columns={{base: 1, md: 2}} spacing={4}>
+					{repos.map((repo) => (
+						<GithubCard key={repo.name} repo={repo}/>
 					))}
 				</SimpleGrid>
-			</Box>
-		</SlideFade>
+			) : (
+				<Card p={8} textAlign="center">
+					<Text fontWeight={600}>Repositories could not be loaded</Text>
+					<Text color="muted" mt={1}>You can browse them directly on my GitHub profile.</Text>
+				</Card>
+			)}
+		</Box>
 	);
 };
 

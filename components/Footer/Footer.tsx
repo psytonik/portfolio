@@ -1,61 +1,44 @@
 import React from 'react';
-import {Box, Flex, IconButton, Link, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {Box, Flex, HStack, IconButton, Text} from "@chakra-ui/react";
 import {siteConfig} from "../../constants";
 
-const iconProps = {
-	variant: "ghost",
-	size: "lg",
-	isRound: true
-};
-
 const Footer = () => {
-
 	return (
-		// @ts-ignore
-		<Stack
-			as="footer"
-			isInline
-			spacing={[1, 2]}
-			p={4}
-			justifyContent="space-between"
-			alignItems="center"
-			w={["100%", "90%", "90%"]}
-			maxW='container.lg'
-			mx="auto"
-		>
+		<Box as="footer" borderTopWidth="1px" mt={8}>
 			<Flex
-				flexDirection={["column", "column", "row"]}
-				flexFlow={["column-reverse", "column-reverse"]}
-				justifyContent={["center", "space-between"]}
-				alignItems="center"
-				w="100%"
+				direction={{base: 'column-reverse', md: 'row'}}
+				align="center"
+				justify="space-between"
+				gap={2}
+				maxW="container.lg"
+				mx="auto"
+				px={{base: 4, md: 6}}
+				py={4}
 			>
-				<Text
-					textAlign="center"
-					fontSize="sm"
-					color={useColorModeValue("gray.500", "gray.200")}
-				>
+				<Text fontSize="sm" color="muted">
 					{siteConfig.copyright}
 				</Text>
 
-				<Box textAlign="center">
-					{siteConfig.author.accounts.map((sc, index) => (
-						// @ts-ignore
+				<HStack spacing={1}>
+					{siteConfig.author.accounts.map((account) => (
 						<IconButton
-							key={index}
-							as={Link}
-							isExternal
-							href={sc.url}
-							aria-label={sc.name}
-							colorScheme={sc.type}
-							icon={<sc.icon/>}
-							{...iconProps}
+							key={account.name}
+							as="a"
+							href={account.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={account.name}
+							variant="ghost"
+							boxSize="44px"
+							fontSize="lg"
+							color="muted"
+							_hover={{color: 'fg', bg: 'subtle'}}
+							icon={<account.icon/>}
 						/>
 					))}
-				</Box>
+				</HStack>
 			</Flex>
-
-		</Stack>
+		</Box>
 	);
 };
 

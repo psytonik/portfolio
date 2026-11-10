@@ -171,7 +171,7 @@ const companies: Experience[] = [
 			{label: "gigcalm.com", url: "https://gigcalm.com/"},
 		],
 		skills: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Redis", "BullMQ", "Tailwind CSS", "Playwright"],
-		period: "Present",
+		period: "2026 - Present",
 		logo: '/gigcalm-icon.png'
 	},
 	{

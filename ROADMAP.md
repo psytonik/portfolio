@@ -4,7 +4,6 @@ Next.js 16 (pages router) + TypeScript + Chakra UI 2. Deployed on Vercel.
 
 ## Нужно от тебя (контент)
 
-- [ ] **GigCalm в About**: указан период «Present» (нужна дата старта), роль Founder, без слова «solo» — подтвердить; проверить, что сайт в проде
 - [ ] **Ссылки компаний**: Testo Pay и Dimension Booking сейчас без ссылок (раньше вели на `google.com`)
 - [ ] **Карточки проектов**: уточнить стек и свою роль в GigCalm и AFink Video (`constants/projects.ts`); Traveller уже заполнен
 - [ ] **Метрики Traveller** (по желанию): установки, платящие подписчики, сгенерированные маршруты — только реальные цифры, из App Store Connect / Play Console / админки
@@ -36,7 +35,6 @@ Next.js 16 (pages router) + TypeScript + Chakra UI 2. Deployed on Vercel.
 ## Done
 
 ### Контент
-- [x] GigCalm в About как работа: 6 инженерных пунктов (exclusion constraint, availability engine, outbox, безопасность, тесты), иконка с gigcalm.com
 - [x] Traveller в About как работа 2026 – настоящее время: роль Founder & Full-Stack Engineer, 6 пунктов достижений, ссылки на App Store, Google Play и сайт
 - [x] Стек расширен под Traveller: Expo, PostgreSQL, Tailwind CSS, Vercel
 - [x] Проекты вынесены в `constants/projects.ts`; добавлены GigCalm, Traveller, AFink Video

@@ -179,7 +179,7 @@ const companies: Experience[] = [
 		alt: "Testo Pay logo",
 		role: "Full Stack Web Developer",
 		skills: ["React", "TypeScript", "Node.js", "Redux", "Material UI", "NoSQL"],
-		period: "Aug 2020 - Present",
+		period: "Aug 2020 - 2026",
 		logo: '/testopay.png'
 	},
 	{

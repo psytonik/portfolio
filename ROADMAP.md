@@ -4,7 +4,6 @@ Next.js 16 (pages router) + TypeScript + Chakra UI 2. Deployed on Vercel.
 
 ## Нужно от тебя (контент)
 
-- [ ] **About**: период Testo Pay «Aug 2020 – Present» — проверить, что он всё ещё верен рядом с Traveller
 - [ ] **GigCalm в About**: указан период «Present» (нужна дата старта), роль Founder, без слова «solo» — подтвердить; проверить, что сайт в проде
 - [ ] **Ссылки компаний**: Testo Pay и Dimension Booking сейчас без ссылок (раньше вели на `google.com`)
 - [ ] **Карточки проектов**: уточнить стек и свою роль в GigCalm и AFink Video (`constants/projects.ts`); Traveller уже заполнен

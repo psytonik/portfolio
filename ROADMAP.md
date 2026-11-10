@@ -9,7 +9,6 @@ Next.js 16 (pages router) + TypeScript + Chakra UI 2. Deployed on Vercel.
 - [ ] **Карточки проектов**: уточнить стек и свою роль в GigCalm и AFink Video (`constants/projects.ts`); Traveller уже заполнен
 - [ ] **Метрики Traveller** (по желанию): установки, платящие подписчики, сгенерированные маршруты — только реальные цифры, из App Store Connect / Play Console / админки
 - [ ] **Секция «AI & agents»**: проверить формулировки в `constants/aiWork.ts`, особенно карточку «AI integration for clients»
-- [ ] **CV**: `public/CV_AnthonyFink.pdf` не обновлялся, в нём нет новых проектов и AI
 - [ ] **OG-картинка**: сейчас ссылка на сторонний ogcdn.net — сделать свою
 
 ## Инфраструктура
